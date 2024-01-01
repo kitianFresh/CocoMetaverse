@@ -1,0 +1,19 @@
+{
+  "name": "coco-metaverse",
+  "version": "1.0.0",
+  "author": "coco",
+  "scripts": {
+    "dev": "vuepress dev . --open --host \"localhost\"",
+    "build": "vuepress build ."
+  },
+  "devDependencies": {
+    "@vuepress/plugin-medium-zoom": "^1.9.10",
+    "vuepress": "1.9.7",
+    "vuepress-plugin-readmore-popular": "^0.0.16",
+    "vuepress-theme-reco": "1.6.17"
+  },
+  "description": "可可的元宇宙，探索无限可能，分享云计算、人工智能、元认知迭代",
+  "dependencies": {
+    "vuepress-plugin-reading-progress": "^1.0.10"
+  }
+}

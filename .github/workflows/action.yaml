@@ -9,7 +9,7 @@ jobs:
 
     - name: cocometaverse-deploy
       uses: kitianFresh/cocometaverse@master
-      with:
+      env:
         ACCESS_TOKEN: "${{ secrets.ACCESS_TOKEN }}"
         TARGET_REPO: kitianFresh/cocometaverse
         TARGET_BRANCH: gh-pages

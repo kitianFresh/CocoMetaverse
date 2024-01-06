@@ -1,3 +1,10 @@
+const autometa_options = {
+  site: {
+    name: 'coco',
+    twitter: 'kinnyfly',
+  },
+  canonical_base: 'https://coco.hacksmeta.com',
+};
 module.exports = {
   "title": "CocoMetaverse",
   "description": "可可的元宇宙，探索无限可能，分享云计算、人工智能、元认知迭代",
@@ -16,10 +23,46 @@ module.exports = {
         "name": "viewport",
         "content": "width=device-width,initial-scale=1,user-scalable=no"
       }
+    ],
+    [
+      "meta",
+      {
+        "name": "baidu-site-verification",
+        "content": "codeva-0IENWLQylP"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "google-site-verification",
+        "content": "c61DXiMcjorKFxoYPTVYy_DRgBqBQ13VBt"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "sogou_site_verification",
+        "content": "QBbjJziQGC"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "msvalidate.01",
+        "content": "44214DFBCE99B820C08366C7A9449E3F"
+      }
+    ],
+    [
+      "meta",
+      {
+        "name": "shenma-site-verification",
+        "content": "2dfafdffe9163bdb878cf9681b0bf3b0_1704528471"
+      }
     ]
   ],
   "theme": "reco",
   "themeConfig": {
+    noFoundPageByTencent: false,
     "nav": [
       {
         "text": "Home",
@@ -98,6 +141,7 @@ module.exports = {
     "lineNumbers": true
   },
   markdown: {
+    externalLinks: { target: '_blank', rel: 'nofollow noopener noreferrer' },
     // markdown-it-anchor 的选项
     anchor: { permalink: false },
     // markdown-it-toc 的选项
@@ -107,6 +151,12 @@ module.exports = {
     }
   },
   plugins: [
+    ['autometa', autometa_options],
+    ['sitemap', {
+      hostname: "https://coco.hacksmeta.com",
+      // 排除无实际内容的页面
+      exclude: ["/404.html"]
+    }],
     [
       '@vuepress/medium-zoom',{}
     ],

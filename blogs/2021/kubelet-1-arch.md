@@ -5,6 +5,9 @@ tags:
  - kubernetes
 sidebar: 'auto'
 publish: true
+meta:
+  - name: kubernetes
+    content: kubeernetes kubelet arch 架构 数据流程
 ---
 
 # 导读

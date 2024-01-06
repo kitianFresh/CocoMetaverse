@@ -107,6 +107,7 @@ module.exports = {
 ```
 ![baidu-site-verification](/images/blog/2024/hack-ip-vuepress-blog/baidu-site-verification.png)
 
+![baidu-site-verification-result](/images/blog/2024/hack-ip-vuepress-blog/baidu-site-verification-result.png)
 
 Google: <https://search.google.com/search-console>
 ![google-site-verification](/images/blog/2024/hack-ip-vuepress-blog/google-site-verification.png)

@@ -35,7 +35,7 @@ module.exports = {
       "meta",
       {
         "name": "google-site-verification",
-        "content": "c61DXiMcjorKFxoYPTVYy_DRgBqBQ13VBt"
+        "content": "c61DXiMcjorKFxoYPTVYy_DRgBqBQ13VBt-TkGwpWAQ"
       }
     ],
     [

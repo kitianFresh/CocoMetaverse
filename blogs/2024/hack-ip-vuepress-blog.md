@@ -1,6 +1,6 @@
 ---
 title: hack-ip-vuepress-blog
-date: 2021-09-21
+date: 2024-01-06
 tags:
  - vuepress
  - hackip
@@ -22,6 +22,8 @@ meta:
 ## 工具
 lighthouse是一个网页应用SEO优化工具，专门给你的网站打分，提供SEO优化建议，这样即使你什么都不懂，也能根据提供的建议，慢慢学习优化。
 https://chromewebstore.google.com/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk?hl=zh
+
+![lighthouse-seo](/images/blog/2024/hack-ip-vuepress-blog/lighthouse-seo.png)
 
 ## 降低外链统计权重
 ```js
@@ -77,11 +79,35 @@ module.exports = {
 }
     
 ```
+生成的sitemap.xml网站地图，可以提交到搜索引擎的站长管理平台。比如提交到谷歌的站长管理平台。
+![google-sitemap-submit](/images/blog/2024/hack-ip-vuepress-blog/google-sitemap-submit.png)
+
+插件的更多配置可以参考[vuepress-plugin-sitemap](https://github.com/ekoeryanto/vuepress-plugin-sitemap)
 
 ## feed
 npm install -D vuepress-plugin-feed
+https://github.com/webmasterish/vuepress-plugin-feed
 
+```js
+// .vuepress/config.js
+// or
+// .vuepress/theme/index.js
 
+// set your global feed options - override in page frontmatter `feed`
+const feed_options = {
+  canonical_base: 'https://coco.hacksmeta.com',
+};
+
+module.exports = {
+  plugins: [
+    [ 'feed', feed_options ]
+  ]
+}
+
+```
+
+## 百度自动推送
+https://github.com/IOriens/vuepress-plugin-baidu-autopush/blob/master/README.md
 npm install -D vuepress-plugin-baidu-autopush
 
 
@@ -117,3 +143,21 @@ Bing站长: https://www.bing.com/webmasters
 搜狗搜索站长: https://zhanzhang.sogou.com/index.php/uc/index
 
 神马搜索站长: https://zhanzhang.sm.cn/
+
+
+## 网站性能优化
+### 部署访问加速
+github pages由于墙的原因，使用国内的域名直接绑定到github pages的CNAME地址访问非常慢，要么我们使用CDN进行加速，要么把网站托管到其他平台，这里可以选国内的coding pages，也可以选vercel。
+
+下面是vercel的部署。vercel和github pages打通的比较好，切换非常丝滑。并且vercel在中国大陆有服务器，所以访问速度比github pages快多了。
+
+直接用github登录vercel，就可以看到项目导入，导入要部署的项目。
+![vercel-import-github-project](/images/blog/2024/hack-ip-vuepress-blog/image-0.png)
+到setting里把branch分支改成 gh-pages, 就是项目部署发布在github pages的默认分支。
+![vercel-image-1](/images/blog/2024/hack-ip-vuepress-blog/image-1.png)
+build的部分不需要填写，因为使用的是已经构建好的分支。
+![vercel-image-2](/images/blog/2024/hack-ip-vuepress-blog/image-2.png)
+域名绑定，填写一个域名，这个域名需要到你购买注册域名的地方，比如腾讯云，去解析CNAME到vercel的地址。
+![vercel-image-3](/images/blog/2024/hack-ip-vuepress-blog/image-3.png)
+最后到部署页面，触发部署，就可以访问页面了。
+![vercel-image-4](/images/blog/2024/hack-ip-vuepress-blog/image-4.png)

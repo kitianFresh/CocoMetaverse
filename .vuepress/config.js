@@ -5,6 +5,9 @@ const autometa_options = {
   },
   canonical_base: 'https://coco.hacksmeta.com',
 };
+const feed_options = {
+  canonical_base: 'https://coco.hacksmeta.com',
+};
 module.exports = {
   "title": "CocoMetaverse",
   "description": "可可的元宇宙，探索无限可能，分享云计算、人工智能、元认知迭代",
@@ -145,13 +148,15 @@ module.exports = {
     // markdown-it-anchor 的选项
     anchor: { permalink: false },
     // markdown-it-toc 的选项
-    toc: { includeLevel: [1, 2] },
+    toc: { includeLevel: [1, 2, 3, 4] },
+    extractHeaders: [ 'h1', 'h2', 'h3', 'h4' ],
     extendMarkdown: md => {
       // 使用更多的 markdown-it 插件!
     }
   },
   plugins: [
     ['autometa', autometa_options],
+    [ 'feed', feed_options ],
     ['sitemap', {
       hostname: "https://coco.hacksmeta.com",
       // 排除无实际内容的页面

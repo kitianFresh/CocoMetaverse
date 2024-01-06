@@ -42,7 +42,7 @@ module.exports = {
       "meta",
       {
         "name": "sogou_site_verification",
-        "content": "QBbjJziQGC"
+        "content": "fMGiPgPETm"
       }
     ],
     [

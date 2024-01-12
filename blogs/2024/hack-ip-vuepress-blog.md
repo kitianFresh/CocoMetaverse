@@ -11,6 +11,10 @@ meta:
     content: 个人IP 站点 vuepress 折腾 SEO 引流
 ---
 
+# 个人网站
+vuepress
+
+https://doc.xugaoyi.com/
 
 # SEO系列
 今年我决定重新捡起博客，第一是为了让自己持续输出和学习，第二是为了提升个人影响力，打造个人IP。
@@ -104,6 +108,29 @@ module.exports = {
   ]
 }
 
+```
+
+## math
+数学公式插件
+```
+npm install -D vuepress-plugin-mathjax
+```
+
+```js
+// .vuepress/config.js
+module.exports = {
+  plugins: [
+    [
+      'vuepress-plugin-mathjax',
+      {
+        target: 'svg',
+        macros: {
+          '*': '\\times',
+        },
+      },
+    ],
+  ],
+}
 ```
 
 ## 百度自动推送

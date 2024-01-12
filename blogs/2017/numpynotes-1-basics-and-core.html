@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Numpy介绍(part1)-入门及核心指南 | CocoMetaverse</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="arange([start,] stop[, step,], dtype=None)：生成一个线性增长的某一范围内的数组，和Python中的 range 类似，但是arange支持浮点参数
+  start，stop &#39;[start, stop)&#39;;start 默认为0；
+  dtype默认从其他参数推断">
+    <meta name="image" content="https://coco.hacksmeta.com/images/blog/2017/numpynotes-1-basics-and-core/axis1.jpeg">
+    <meta name="twitter:title" content="Numpy介绍(part1)-入门及核心指南">
+    <meta name="twitter:description" content="arange([start,] stop[, step,], dtype=None)：生成一个线性增长的某一范围内的数组，和Python中的 range 类似，但是arange支持浮点参数
+  start，stop &#39;[start, stop)&#39;;start 默认为0；
+  dtype默认从其他参数推断">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://coco.hacksmeta.com/images/blog/2017/numpynotes-1-basics-and-core/axis1.jpeg">
+    <meta name="twitter:url" content="https://coco.hacksmeta.com/blogs/2017/numpynotes-1-basics-and-core.html">
+    <meta name="twitter:site" content="@kinnyfly">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Numpy介绍(part1)-入门及核心指南">
+    <meta property="og:description" content="arange([start,] stop[, step,], dtype=None)：生成一个线性增长的某一范围内的数组，和Python中的 range 类似，但是arange支持浮点参数
+  start，stop &#39;[start, stop)&#39;;start 默认为0；
+  dtype默认从其他参数推断">
+    <meta property="og:image" content="https://coco.hacksmeta.com/images/blog/2017/numpynotes-1-basics-and-core/axis1.jpeg">
+    <meta property="og:url" content="https://coco.hacksmeta.com/blogs/2017/numpynotes-1-basics-and-core.html">
+    <meta property="og:site_name" content="coco">
+    <meta property="article:published_time" content="2017-02-11T00:00:00.000Z">
+    <meta property="article:tag" content="Numpy">
+    <meta itemprop="name" content="Numpy介绍(part1)-入门及核心指南">
+    <meta itemprop="description" content="arange([start,] stop[, step,], dtype=None)：生成一个线性增长的某一范围内的数组，和Python中的 range 类似，但是arange支持浮点参数
+  start，stop &#39;[start, stop)&#39;;start 默认为0；
+  dtype默认从其他参数推断">
+    <meta itemprop="image" content="https://coco.hacksmeta.com/images/blog/2017/numpynotes-1-basics-and-core/axis1.jpeg">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="codeva-0IENWLQylP">
+    <meta name="google-site-verification" content="c61DXiMcjorKFxoYPTVYy_DRgBqBQ13VBt-TkGwpWAQ">
+    <meta name="sogou_site_verification" content="fMGiPgPETm">
+    <meta name="msvalidate.01" content="44214DFBCE99B820C08366C7A9449E3F">
+    <meta name="shenma-site-verification" content="2dfafdffe9163bdb878cf9681b0bf3b0_1704528471">
+    
+    <link rel="preload" href="/assets/css/0.styles.6472c706.css" as="style"><link rel="preload" href="/assets/js/app.328459c7.js" as="script"><link rel="preload" href="/assets/js/3.f94842e7.js" as="script"><link rel="preload" href="/assets/js/1.696ef8d7.js" as="script"><link rel="preload" href="/assets/js/17.9a5ee87b.js" as="script"><link rel="prefetch" href="/assets/js/10.b3af070e.js"><link rel="prefetch" href="/assets/js/11.c17414a0.js"><link rel="prefetch" href="/assets/js/12.52bbc0c5.js"><link rel="prefetch" href="/assets/js/13.cb81ff4b.js"><link rel="prefetch" href="/assets/js/14.7cc3ac16.js"><link rel="prefetch" href="/assets/js/15.0b60fb03.js"><link rel="prefetch" href="/assets/js/16.b69e0e45.js"><link rel="prefetch" href="/assets/js/18.74e4c23b.js"><link rel="prefetch" href="/assets/js/19.4161bd37.js"><link rel="prefetch" href="/assets/js/20.b8bd88e7.js"><link rel="prefetch" href="/assets/js/21.0f7e4fe0.js"><link rel="prefetch" href="/assets/js/22.ba1071d2.js"><link rel="prefetch" href="/assets/js/23.3ac16df6.js"><link rel="prefetch" href="/assets/js/24.df46509b.js"><link rel="prefetch" href="/assets/js/25.00e8b8a8.js"><link rel="prefetch" href="/assets/js/26.4399212b.js"><link rel="prefetch" href="/assets/js/27.33fc774f.js"><link rel="prefetch" href="/assets/js/28.6590f188.js"><link rel="prefetch" href="/assets/js/29.770efeb4.js"><link rel="prefetch" href="/assets/js/4.ef78af17.js"><link rel="prefetch" href="/assets/js/5.7f88bc0b.js"><link rel="prefetch" href="/assets/js/6.d864745e.js"><link rel="prefetch" href="/assets/js/7.ab89c76a.js"><link rel="prefetch" href="/assets/js/8.3b019054.js"><link rel="prefetch" href="/assets/js/9.4667b609.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6472c706.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-7dd95ae2><div data-v-7dd95ae2><div class="password-shadow password-wrapper-out" style="display:none;" data-v-59e6cb88 data-v-7dd95ae2 data-v-7dd95ae2><h3 class="title" data-v-59e6cb88>CocoMetaverse</h3> <p class="description" data-v-59e6cb88>可可的元宇宙，探索无限可能，分享云计算、人工智能、元认知迭代</p> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>coco</span>
+          
+        <span data-v-59e6cb88>2017 - </span>
+        2024
+      </a></span></div></div> <div class="hide" data-v-7dd95ae2><header class="navbar" data-v-7dd95ae2><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="CocoMetaverse" class="logo"> <span class="site-name">CocoMetaverse</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Blog
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      Docs
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/metahacks/" class="nav-link"><i class="undefined"></i>
+  metahacks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/cloud/" class="nav-link"><i class="undefined"></i>
+  cloud
+</a></li><li class="dropdown-item"><!----> <a href="/docs/ai/" class="nav-link"><i class="undefined"></i>
+  ai
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-menu"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/kitianFresh" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-7dd95ae2></div> <aside class="sidebar" data-v-7dd95ae2><div class="personal-info-wrapper" data-v-1fad0c41 data-v-7dd95ae2><img src="/avatar.png" alt="author-avatar" class="personal-img" data-v-1fad0c41> <h3 class="name" data-v-1fad0c41>
+    coco
+  </h3> <div class="num" data-v-1fad0c41><div data-v-1fad0c41><h3 data-v-1fad0c41>17</h3> <h6 data-v-1fad0c41>Articles</h6></div> <div data-v-1fad0c41><h3 data-v-1fad0c41>46</h3> <h6 data-v-1fad0c41>Tags</h6></div></div> <ul class="social-links" data-v-1fad0c41></ul> <hr data-v-1fad0c41></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Blog
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      Docs
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/metahacks/" class="nav-link"><i class="undefined"></i>
+  metahacks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/cloud/" class="nav-link"><i class="undefined"></i>
+  cloud
+</a></li><li class="dropdown-item"><!----> <a href="/docs/ai/" class="nav-link"><i class="undefined"></i>
+  ai
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-menu"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/kitianFresh" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-59e6cb88 data-v-7dd95ae2><h3 class="title" data-v-59e6cb88>Numpy介绍(part1)-入门及核心指南</h3> <!----> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>coco</span>
+          
+        <span data-v-59e6cb88>2017 - </span>
+        2024
+      </a></span></div></div> <div data-v-7dd95ae2><div data-v-7dd95ae2><main class="page"><section style="display:;"><div class="page-title"><h1 class="title">Numpy介绍(part1)-入门及核心指南</h1> <div data-v-8a445198><i class="iconfont reco-account" data-v-8a445198><span data-v-8a445198>coco</span></i> <i class="iconfont reco-date" data-v-8a445198><span data-v-8a445198>2/11/2017</span></i> <!----> <i class="tags iconfont reco-tag" data-v-8a445198><span class="tag-item" data-v-8a445198>Numpy</span><span class="tag-item" data-v-8a445198>Python</span><span class="tag-item" data-v-8a445198>DataScience</span></i></div></div> <div class="theme-reco-content content__default"><h1 id="numpy-array-creation">Numpy array creation</h1> <h2 id="创建均匀分布的值">创建均匀分布的值</h2> <h3 id="arange">arange</h3> <ul><li>arange([start,] stop[, step,], dtype=None)：生成一个线性增长的某一范围内的数组，和Python中的 range 类似，但是arange支持浮点参数</li></ul> <ul><li>start，stop '[start, stop)';start 默认为0；</li> <li>dtype默认从其他参数推断</li></ul> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">10.2</span><span class="token punctuation">,</span> <span class="token number">0.8</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">10.4</span><span class="token punctuation">)</span>
+x <span class="token operator">=</span> <span class="token builtin">xrange</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> x
+<span class="token builtin">list</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[1 3 5 7 9]
+[]
+[  0.   1.   2.   3.   4.   5.   6.   7.   8.   9.  10.]
+xrange(10)
+
+
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</code></pre></div><p>x 是一个 generator, 因此不能直接打印</p> <h3 id="linspace">linspace</h3> <ul><li>linspace(start, stop, num=50, endpoint=True, retstep=False)：在闭区间或半开区间中生成等间隔的序列点，即均分区间；</li></ul> <ul><li>start,stop '[start,stop]' 或者 '[start,stop)';</li> <li>num 生成的点数，默认50；</li> <li>endpoint，即[start,stop]为真，[start,stop）为假，就是带不带端点的意思；</li> <li>retstep，为真的时候，会返回额外的间隔，即返回 (samples, step) 二元组；</li></ul> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">print</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">)</span> <span class="token comment">#step = (10-1)/(7-1)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+samples<span class="token punctuation">,</span> step <span class="token operator">=</span> np<span class="token punctuation">.</span>linspace<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token boolean">True</span><span class="token punctuation">,</span><span class="token boolean">True</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> samples<span class="token punctuation">,</span> step
+</code></pre></div><div class="language- extra-class"><pre><code>[  1.           1.18367347   1.36734694   1.55102041   1.73469388
+   1.91836735   2.10204082   2.28571429   2.46938776   2.65306122
+   2.83673469   3.02040816   3.20408163   3.3877551    3.57142857
+   3.75510204   3.93877551   4.12244898   4.30612245   4.48979592
+   4.67346939   4.85714286   5.04081633   5.2244898    5.40816327
+   5.59183673   5.7755102    5.95918367   6.14285714   6.32653061
+   6.51020408   6.69387755   6.87755102   7.06122449   7.24489796
+   7.42857143   7.6122449    7.79591837   7.97959184   8.16326531
+   8.34693878   8.53061224   8.71428571   8.89795918   9.08163265
+   9.26530612   9.44897959   9.63265306   9.81632653  10.        ]
+[  1.    2.5   4.    5.5   7.    8.5  10. ]
+[ 1.          2.28571429  3.57142857  4.85714286  6.14285714  7.42857143
+  8.71428571]
+[  1.    2.5   4.    5.5   7.    8.5  10. ] 1.5
+</code></pre></div><h2 id="创建多维数组ndarray">创建多维数组ndarray</h2> <p>比 Python list 更加高效的多维数组, 接受以 Python list 形式递归嵌套定义的多维数组；</p> <h3 id="_0维数组">0维数组</h3> <p>可以认为是一个标量scalar</p> <div class="language-python extra-class"><pre class="language-python"><code>x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token number">777</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;x: %d&quot;</span> <span class="token operator">%</span> x
+<span class="token keyword">print</span> <span class="token string">&quot;type: %s&quot;</span> <span class="token operator">%</span> <span class="token builtin">type</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;dimension: %d&quot;</span> <span class="token operator">%</span> np<span class="token punctuation">.</span>ndim<span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;shape: &quot;</span><span class="token punctuation">,</span> x<span class="token punctuation">.</span>shape
+</code></pre></div><div class="language- extra-class"><pre><code>x: 777
+type: &lt;type 'numpy.ndarray'&gt;
+dimension: 0
+shape:  ()
+</code></pre></div><h3 id="_1维数组">1维数组</h3> <div class="language-python extra-class"><pre class="language-python"><code>V <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;V: &quot;</span><span class="token punctuation">,</span> V
+<span class="token keyword">print</span> <span class="token string">&quot;type: &quot;</span><span class="token punctuation">,</span> <span class="token builtin">type</span><span class="token punctuation">(</span>V<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;dimension: &quot;</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>ndim<span class="token punctuation">(</span>V<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;shape: &quot;</span><span class="token punctuation">,</span> V<span class="token punctuation">.</span>shape
+</code></pre></div><div class="language- extra-class"><pre><code>V:  [1 2 3 4 5]
+type:  &lt;type 'numpy.ndarray'&gt;
+dimension:  1
+shape:  (5,)
+</code></pre></div><h3 id="多维数组">多维数组</h3> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> A
+<span class="token keyword">print</span> A<span class="token punctuation">.</span>ndim
+<span class="token keyword">print</span> A<span class="token punctuation">.</span>shape
+
+Q <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">13</span><span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">,</span><span class="token number">17</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> Q
+<span class="token keyword">print</span> Q<span class="token punctuation">.</span>ndim
+<span class="token keyword">print</span> Q<span class="token punctuation">.</span>shape
+</code></pre></div><div class="language- extra-class"><pre><code>[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+2
+(3, 3)
+[[[ 1  2  3]
+  [ 4  5  6]
+  [ 7  8  9]]
+
+ [[10 11 12]
+  [13 14 15]
+  [16 17 18]]]
+3
+(2, 3, 3)
+</code></pre></div><h3 id="ndarray-shape-和-axis">ndarray shape 和 axis</h3> <p>多维数组的 shape 就是一个各个维度长度组成的 tuple，每一个维度都有一个轴 axis</p> <div class="language-python extra-class"><pre class="language-python"><code>x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">67</span><span class="token punctuation">,</span> <span class="token number">63</span><span class="token punctuation">,</span> <span class="token number">87</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">77</span><span class="token punctuation">,</span> <span class="token number">69</span><span class="token punctuation">,</span> <span class="token number">59</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">85</span><span class="token punctuation">,</span> <span class="token number">87</span><span class="token punctuation">,</span> <span class="token number">99</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">79</span><span class="token punctuation">,</span> <span class="token number">72</span><span class="token punctuation">,</span> <span class="token number">71</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">63</span><span class="token punctuation">,</span> <span class="token number">89</span><span class="token punctuation">,</span> <span class="token number">93</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">68</span><span class="token punctuation">,</span> <span class="token number">92</span><span class="token punctuation">,</span> <span class="token number">78</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>shape<span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>(6, 3)
+</code></pre></div><p>二维数组的轴，你可以理解为二维平面坐标轴，axis=0 表示当沿着y方向，axis=1 表示沿着x方向</p> <p><img src="/images/blog/2017/numpynotes-1-basics-and-core/axis1.jpeg" alt="axis1"></p> <p>三维数组的轴，可以理解为三维空间坐标轴，axis=0 表示当沿着y方向，axis=1 表示沿着x方向，axis=2 表示沿着z方向</p> <p><img src="/images/blog/2017/numpynotes-1-basics-and-core/axis.jpeg" alt="axis"></p> <p>**高维空间是无法映射到物理空间的，因此也不能画出图像来，但是还是一样，每一个维度对应一个轴，沿着某一个轴，剩下的维度构成一个超空间。**对于2维，沿着x轴，剩下的y维度构成一个直线向下平移；</p> <blockquote><p>多维数组维度的理解，这里如何看出Q是三维且shape为(2,3,3)呢？</p></blockquote> <p><strong>递归定义，递归检查</strong></p> <ul><li>先检查第一个中括号对[]里的元素，发现是两个list元素，那么第一维度的长度为2；</li> <li>进一步进入内部的list [[1,2,3],[4,5,6],[7,8,9]]，递归进行维度检查，发现内部有三个list元素，因此第二维度长度为3；</li> <li>再进行递归，进入第三层list [1,2,3],此时内部含有三个元素，因此第三维度长度为3；最后再次递归时，发现元素是scalar，停止；</li></ul> <p>因此是 3 维且 shape 为 (2,3,3)；axis 分别是 0,1,2</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">my_shape</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    shape <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    shape<span class="token punctuation">.</span>extend<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token builtin">len</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> e <span class="token keyword">in</span> l<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token builtin">list</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            shape<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>my_shape<span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">break</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">continue</span>
+    <span class="token keyword">return</span> shape
+l <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">13</span><span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">,</span><span class="token number">17</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token punctuation">]</span>
+my_shape<span class="token punctuation">(</span>l<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[2, 3, 3]
+</code></pre></div><blockquote><p>维度和axis有什么用呢？</p></blockquote> <p><strong>整形，广播和聚合计算</strong></p> <ul><li>我们先来看看聚合计算的例子，就容易知道axis的作用了！</li></ul> <div class="language-python extra-class"><pre class="language-python"><code>B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+C <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">11</span><span class="token punctuation">,</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">13</span><span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">,</span><span class="token number">17</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> B
+<span class="token keyword">print</span> B<span class="token punctuation">.</span>shape
+<span class="token keyword">print</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">'-------------------------'</span>
+<span class="token keyword">print</span> C
+<span class="token keyword">print</span> C<span class="token punctuation">.</span>shape
+<span class="token keyword">print</span> <span class="token string">&quot;axis=0\n&quot;</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>C<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;axis=1\n&quot;</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>C<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;axis=2\n&quot;</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>C<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+
+D <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span>C<span class="token punctuation">,</span>C<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span>C<span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">'-------------------------'</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>D<span class="token punctuation">)</span>
+<span class="token keyword">print</span> D<span class="token punctuation">.</span>shape
+<span class="token keyword">print</span> <span class="token string">&quot;axis=0\n&quot;</span><span class="token punctuation">,</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>D<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;axis=1\n&quot;</span><span class="token punctuation">,</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>D<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;axis=2\n&quot;</span><span class="token punctuation">,</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>D<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">&quot;axis=3\n&quot;</span><span class="token punctuation">,</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span><span class="token builtin">sum</span><span class="token punctuation">(</span>D<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[[ 1  2  3]
+ [ 4  5  6]
+ [ 7  8  9]
+ [10 11 12]]
+(4, 3)
+[22 26 30]
+[ 6 15 24 33]
+-------------------------
+[[[ 1  2  3]
+  [ 4  5  6]
+  [ 7  8  9]]
+
+ [[10 11 12]
+  [13 14 15]
+  [16 17 18]]]
+(2, 3, 3)
+axis=0
+[[11 13 15]
+ [17 19 21]
+ [23 25 27]]
+axis=1
+[[12 15 18]
+ [39 42 45]]
+axis=2
+[[ 6 15 24]
+ [33 42 51]]
+-------------------------
+array([[[[ 1,  2,  3],
+         [ 4,  5,  6],
+         [ 7,  8,  9]],
+
+        [[10, 11, 12],
+         [13, 14, 15],
+         [16, 17, 18]]],
+
+
+       [[[ 2,  3,  4],
+         [ 5,  6,  7],
+         [ 8,  9, 10]],
+
+        [[11, 12, 13],
+         [14, 15, 16],
+         [17, 18, 19]]],
+
+
+       [[[ 3,  4,  5],
+         [ 6,  7,  8],
+         [ 9, 10, 11]],
+
+        [[12, 13, 14],
+         [15, 16, 17],
+         [18, 19, 20]]]])
+(3, 2, 3, 3)
+axis=0
+array([[[ 6,  9, 12],
+        [15, 18, 21],
+        [24, 27, 30]],
+
+       [[33, 36, 39],
+        [42, 45, 48],
+        [51, 54, 57]]])
+axis=1
+array([[[11, 13, 15],
+        [17, 19, 21],
+        [23, 25, 27]],
+
+       [[13, 15, 17],
+        [19, 21, 23],
+        [25, 27, 29]],
+
+       [[15, 17, 19],
+        [21, 23, 25],
+        [27, 29, 31]]])
+axis=2
+array([[[12, 15, 18],
+        [39, 42, 45]],
+
+       [[15, 18, 21],
+        [42, 45, 48]],
+
+       [[18, 21, 24],
+        [45, 48, 51]]])
+axis=3
+array([[[ 6, 15, 24],
+        [33, 42, 51]],
+
+       [[ 9, 18, 27],
+        [36, 45, 54]],
+
+       [[12, 21, 30],
+        [39, 48, 57]]])
+</code></pre></div><blockquote><p>以上聚合计算，axis如何改变 np.sum 的最终结果呢？</p></blockquote> <ul><li>坐标空间法
+<ul><li>根据坐标平面来理解，利用空间想象，axis=0就是沿着y轴移动，即每一条垂直于x轴的线，累加起来，reduce成为一个sum点，得到 [22 26 30]的结果；反之，axis=1就是沿着x轴移动，即每一条垂直与y轴的线，累加起来，reduce成为一个sum点，得到 [ 6 15 24 33]；</li> <li>利用空间只能想象到三维，因此不太通用，并不是聚合计算中采用axis的本质；</li></ul></li> <li><strong>抽象维度法</strong>（我也称之为<strong>降维攻击法</strong> ^&lt;^）
+<ul><li>更加通用的方法，其实 axis 的本质，采用抽象的方法来理解，更容易计算出最终结果；以上面的C为例:</li> <li>axis=0，即把该维度进行降维，根据sum将该维度reduce成一个点。具体操作就是定位第0维度，即递归的第一层次，该维度长度为2，剩下维度构成一个超空间，第0维度的每一个元素都对应着一个超空间，即第一个list元素[[1,2,3],[4,5,6],[7,8,9]]超空间，第二个list元素[[10,11,12],[13,14,15],[16,17,18]]超空间，沿着第0维度将这些超空间的元素对应位置累加起来，最后reduce掉第0维度，即结果成为shape（3,3）的一个超空间（在这里就是一个平面）[[11,13,15],[17,19,21],[23,25,27]];</li> <li>axis=1,即把第1维度进行降维，首先定位，即第二次递归，进入第二层次的那个维度，这个维度有第0维度的第一个元素中的三个list元素[1,2,3],[4,5,6],[7,8,9]以及第0维度的第二个元素中的三个list元素[10,11,12],[13,14,15],[16,17,18]，此时对其进行reduce降维，将三个元素累加起来，得到shape为(2,3)的超空间[[12,15,18],[39,42,45]],即在不改变另外两个维度的前提下，缩减axis维度。</li> <li>axis=2，即把递归进入第三层，该维度有三个scalar元素，即子空间[0][0]的[1,2,3],[0][1]的[4,5,6],[0][2]的[7,8,9],[1][0]的[10,11,12], [1][1]的[13,14,15], [1][2]的[16,17,18]，将三个scalar直接相加起来，[[6,15,24],[33,42,51]]</li> <li>抽象维度法的步骤就是，<strong>定位维度所在递归列表的层次，不改变另外两个维度的前提下，将所有处于该维度的元素reduce降维；</strong></li></ul></li></ul> <blockquote><p>D的axis=1的例子？</p></blockquote> <p>定位到第二个<code>[</code>,内部两个元素，因为该维度长度2，
+\begin{equation}
+\begin{bmatrix}
+1  &amp;  2  &amp;  3 \\
+4  &amp;  5  &amp;  6 \\
+7  &amp;  8  &amp;  9
+\end{bmatrix},
+\begin{bmatrix}
+10 &amp; 11 &amp; 12 \\
+13 &amp; 14 &amp; 15 \\
+16 &amp; 17 &amp; 18
+\end{bmatrix}
+\end{equation}</p> <p>将该维度降维，即
+\begin{equation}
+\begin{bmatrix}
+1 &amp; 2 &amp; 3 \\
+4 &amp; 5 &amp; 6 \\
+7 &amp; 8 &amp; 9
+\end{bmatrix}+
+\begin{bmatrix}
+10 &amp; 11 &amp; 12 \\
+13 &amp; 14 &amp; 15 \\
+16 &amp; 17 &amp; 18
+\end{bmatrix}=
+\begin{bmatrix}
+11 &amp; 13 &amp; 15 \\
+17 &amp; 19 &amp; 21 \\
+23 &amp; 25 &amp; 27
+\end{bmatrix}
+\end{equation}</p> <h3 id="索引和切片-indexing-slicing">索引和切片（indexing &amp; slicing）</h3> <p>索引和 Python list tuple 一样的用法，可以采用 list[i][j][k]的写法或者 list[i,j,k]，并且还支持 tuple 索引，即索引是一个数组，直接取出一批数据；</p> <div class="language-python extra-class"><pre class="language-python"><code>python_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span>
+python_slice <span class="token operator">=</span> python_list<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> python_list
+<span class="token keyword">print</span> python_slice
+python_slice<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">777</span>
+<span class="token keyword">print</span> python_slice
+<span class="token keyword">print</span> python_list
+
+X <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">28</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>X<span class="token punctuation">)</span>
+X <span class="token operator">=</span> X<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> X
+<span class="token keyword">print</span> X<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">]</span>
+array_index_x <span class="token operator">=</span> X<span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> array_index_x
+array_index_x<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">999</span>
+<span class="token keyword">print</span> array_index_x
+<span class="token keyword">print</span> X
+</code></pre></div><div class="language- extra-class"><pre><code>[1, 2, 3, 4, 5, 6]
+[2, 3, 4]
+[777, 3, 4]
+[1, 2, 3, 4, 5, 6]
+[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+ 25 26 27]
+[[ 0  1  2  3  4  5  6]
+ [ 7  8  9 10 11 12 13]
+ [14 15 16 17 18 19 20]
+ [21 22 23 24 25 26 27]]
+8
+[ 4 12 20]
+[999  12  20]
+[[ 0  1  2  3  4  5  6]
+ [ 7  8  9 10 11 12 13]
+ [14 15 16 17 18 19 20]
+ [21 22 23 24 25 26 27]]
+</code></pre></div><p>切片和 Python list tuple 也类似，但是有一点不同：** Python list 和 tuple 中切片会创建一个新的对象，改变这个对象不影响原来的 list，但是 numpy 中的 ndarray，切片创建的是原来 ndarray 的视图，修改后会改变原始 ndarray；但是通过数组索引的形式获取的，就不是视图了，而是新的对象。**</p> <ul><li>X[start:stop:step], [start, stop)左闭右开</li></ul> <p><img src="/images/blog/2017/numpynotes-1-basics-and-core/slicing.png" alt="slicing"></p> <div class="language-python extra-class"><pre class="language-python"><code>X <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">28</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>X<span class="token punctuation">)</span>
+<span class="token keyword">print</span> X<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+X <span class="token operator">=</span> np<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>X<span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+view <span class="token operator">=</span> X<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>view<span class="token punctuation">)</span>
+view<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">777</span>
+<span class="token keyword">print</span> X
+view <span class="token operator">=</span> X<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> view
+view <span class="token operator">=</span> X<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> view
+</code></pre></div><div class="language- extra-class"><pre><code>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+ 25 26 27]
+[27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10  9  8  7  6  5  4  3
+  2  1  0]
+[[ 0  3  6]
+ [14 17 20]]
+[[777   1   2   3   4   5   6]
+ [  7   8   9  10  11  12  13]
+ [ 14  15  16  17  18  19  20]
+ [ 21  22  23  24  25  26  27]]
+[[ 8  9 10 11 12]
+ [15 16 17 18 19]]
+[[ 27  26  25  24  23  22  21]
+ [ 20  19  18  17  16  15  14]
+ [ 13  12  11  10   9   8   7]
+ [  6   5   4   3   2   1 777]]
+</code></pre></div><h3 id="内存共享">内存共享</h3> <p>我们可以使用 <code>np.may_share_memory(A, B)</code> 来查看两个array是否共享了内存；如果A B 内存有共享的部分，就返回真；</p> <div class="language-python extra-class"><pre class="language-python"><code>np<span class="token punctuation">.</span>may_share_memory<span class="token punctuation">(</span>X<span class="token punctuation">,</span> view<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>True
+</code></pre></div><p><code>ndarray.data</code> 用来得到array的数组数据的指针地址，我们会发现** reshape 或者非索引形式的切片存在某种内存共享；**</p> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> A<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>A<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>B<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token punctuation">(</span>A<span class="token punctuation">.</span>data <span class="token operator">==</span> B<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>may_share_memory<span class="token punctuation">(</span>A<span class="token punctuation">,</span>B<span class="token punctuation">)</span>
+A<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">777</span>
+<span class="token keyword">print</span> A
+<span class="token keyword">print</span> B
+<span class="token comment">#print (view.data) #AttributeError: cannot get single-segment buffer for discontiguous array</span>
+</code></pre></div><div class="language- extra-class"><pre><code>&lt;read-write buffer for 0x7f7589c067b0, size 96, offset 0 at 0x7f7589c79830&gt;
+&lt;read-write buffer for 0x7f7589c24c60, size 96, offset 0 at 0x7f7589c793f0&gt;
+True
+True
+[  0   1   2   3   4   5   6 777   8   9  10  11]
+[[  0   1   2   3]
+ [  4   5   6 777]
+ [  8   9  10  11]]
+</code></pre></div><h2 id="创建特殊array-数组copy">创建特殊array &amp; 数组copy</h2> <p>创建特殊的ndarray的方法，numpy 提供了很多<a href="https://docs.scipy.org/doc/numpy/reference/routines.array-creation.html" target="_blank" rel="nofollow noopener noreferrer">api<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>来创建特殊的ndarray；ones &amp; zeros &amp; eye &amp; identity</p> <div class="language-python extra-class"><pre class="language-python"><code>zeros <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ones <span class="token operator">=</span> np<span class="token punctuation">.</span>ones<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+identity <span class="token operator">=</span> np<span class="token punctuation">.</span>identity<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+eye <span class="token operator">=</span> np<span class="token punctuation">.</span>eye<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span> k<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> zeros
+<span class="token keyword">print</span> ones
+<span class="token keyword">print</span> identity
+<span class="token keyword">print</span> eye
+copy <span class="token operator">=</span> ones<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> copy
+</code></pre></div><div class="language- extra-class"><pre><code>[[ 0.  0.  0.  0.]
+ [ 0.  0.  0.  0.]
+ [ 0.  0.  0.  0.]
+ [ 0.  0.  0.  0.]]
+[[ 1.  1.  1.]
+ [ 1.  1.  1.]
+ [ 1.  1.  1.]]
+[[ 1.  0.  0.  0.]
+ [ 0.  1.  0.  0.]
+ [ 0.  0.  1.  0.]
+ [ 0.  0.  0.  1.]]
+[[ 0.  1.  0.  0.  0.]
+ [ 0.  0.  1.  0.  0.]
+ [ 0.  0.  0.  1.  0.]
+ [ 0.  0.  0.  0.  1.]]
+[[ 1.  1.  1.]
+ [ 1.  1.  1.]
+ [ 1.  1.  1.]]
+</code></pre></div><h1 id="numpy-data-type">Numpy data type</h1> <h2 id="dtype">dtype</h2> <blockquote><p>假如要使用numpy装入一个二维的下列表格，表中的每一列数据类型都不一样，如何做呢？</p></blockquote> <table><thead><tr><th style="text-align:left;">Country</th> <th style="text-align:left;">Population Density</th> <th style="text-align:left;">Area</th> <th style="text-align:left;">Population</th></tr></thead> <tbody><tr><td style="text-align:left;">Netherlands</td> <td style="text-align:left;">393</td> <td style="text-align:left;">41526</td> <td style="text-align:left;">16,928,800</td></tr> <tr><td style="text-align:left;">Belgium</td> <td style="text-align:left;">337</td> <td style="text-align:left;">30510</td> <td style="text-align:left;">11,007,020</td></tr> <tr><td style="text-align:left;">United Kingdom</td> <td style="text-align:left;">256</td> <td style="text-align:left;">243610</td> <td style="text-align:left;">62,262,000</td></tr> <tr><td style="text-align:left;">Germany</td> <td style="text-align:left;">233</td> <td style="text-align:left;">357021</td> <td style="text-align:left;">81,799,600</td></tr> <tr><td style="text-align:left;">Liechtenstein</td> <td style="text-align:left;">205</td> <td style="text-align:left;">160</td> <td style="text-align:left;">32,842</td></tr> <tr><td style="text-align:left;">Italy</td> <td style="text-align:left;">192</td> <td style="text-align:left;">301230</td> <td style="text-align:left;">59,715,625</td></tr> <tr><td style="text-align:left;">Switzerland</td> <td style="text-align:left;">177</td> <td style="text-align:left;">41290</td> <td style="text-align:left;">7,301,994</td></tr> <tr><td style="text-align:left;">Luxembourg</td> <td style="text-align:left;">173</td> <td style="text-align:left;">2586</td> <td style="text-align:left;">512,000</td></tr> <tr><td style="text-align:left;">France</td> <td style="text-align:left;">111</td> <td style="text-align:left;">547030</td> <td style="text-align:left;">63,601,002</td></tr> <tr><td style="text-align:left;">Austria</td> <td style="text-align:left;">97</td> <td style="text-align:left;">83858</td> <td style="text-align:left;">8,169,929</td></tr> <tr><td style="text-align:left;">Greece</td> <td style="text-align:left;">81</td> <td style="text-align:left;">131940</td> <td style="text-align:left;">11,606,813</td></tr> <tr><td style="text-align:left;">Ireland</td> <td style="text-align:left;">65</td> <td style="text-align:left;">70280</td> <td style="text-align:left;">4,581,269</td></tr> <tr><td style="text-align:left;">Sweden</td> <td style="text-align:left;">20</td> <td style="text-align:left;">449964</td> <td style="text-align:left;">9,515,744</td></tr> <tr><td style="text-align:left;">Finland</td> <td style="text-align:left;">16</td> <td style="text-align:left;">338424</td> <td style="text-align:left;">5,410,233</td></tr> <tr><td style="text-align:left;">Norway</td> <td style="text-align:left;">13</td> <td style="text-align:left;">385252</td> <td style="text-align:left;">5,033,675</td></tr></tbody></table> <div class="language-python extra-class"><pre class="language-python"><code>dt <span class="token operator">=</span> np<span class="token punctuation">.</span>dtype<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'density'</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>int32<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">393</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">337</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+             dtype<span class="token operator">=</span>dt<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;\nThe internal representation:&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">repr</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> x<span class="token punctuation">[</span><span class="token string">'density'</span><span class="token punctuation">]</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[(393,) (337,) (256,)]
+
+The internal representation:
+array([(393,), (337,), (256,)], 
+      dtype=[('density', '&lt;i4')])
+[393 337 256]
+</code></pre></div><p>我们可以采用 <code>np.dtype</code> 给某一列定义一个数据类型对象，这个对象可以通过复杂的组合，生成一个结构化的数据类型，就像结构体一样；对于 density 这一列，是 int32 数据类型。目前只有这一列，因此x 的构造写法是按列的写法；np.int32 的 内部表示其实是 <code>&lt;i4</code>；<code>&lt;&gt;=</code>表示大端小端法和本地；</p> <div class="language-python extra-class"><pre class="language-python"><code>dt <span class="token operator">=</span> np<span class="token punctuation">.</span>dtype<span class="token punctuation">(</span><span class="token string">'&lt;d'</span><span class="token punctuation">)</span> 
+<span class="token keyword">print</span><span class="token punctuation">(</span>dt<span class="token punctuation">.</span>name<span class="token punctuation">,</span> dt<span class="token punctuation">.</span>byteorder<span class="token punctuation">,</span> dt<span class="token punctuation">.</span>itemsize<span class="token punctuation">)</span>
+dt <span class="token operator">=</span> np<span class="token punctuation">.</span>dtype<span class="token punctuation">(</span><span class="token string">'&gt;d'</span><span class="token punctuation">)</span>  
+<span class="token keyword">print</span><span class="token punctuation">(</span>dt<span class="token punctuation">.</span>name<span class="token punctuation">,</span> dt<span class="token punctuation">.</span>byteorder<span class="token punctuation">,</span> dt<span class="token punctuation">.</span>itemsize<span class="token punctuation">)</span>
+dt <span class="token operator">=</span> np<span class="token punctuation">.</span>dtype<span class="token punctuation">(</span><span class="token string">'d'</span><span class="token punctuation">)</span> 
+<span class="token keyword">print</span><span class="token punctuation">(</span>dt<span class="token punctuation">.</span>name<span class="token punctuation">,</span> dt<span class="token punctuation">.</span>byteorder<span class="token punctuation">,</span> dt<span class="token punctuation">.</span>itemsize<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>('float64', '=', 8)
+('float64', '&gt;', 8)
+('float64', '=', 8)
+</code></pre></div><p>以上分别表示 8 字节的浮点类型，小端（即本地的），大端和本地的；
+下面创建的就是一个结构体类型对象，每一个tuple对应一列；</p> <div class="language-python extra-class"><pre class="language-python"><code>dt <span class="token operator">=</span> np<span class="token punctuation">.</span>dtype<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'country'</span><span class="token punctuation">,</span> <span class="token string">'S20'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'density'</span><span class="token punctuation">,</span> <span class="token string">'i4'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'area'</span><span class="token punctuation">,</span> <span class="token string">'i4'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'population'</span><span class="token punctuation">,</span> <span class="token string">'i4'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'Netherlands'</span><span class="token punctuation">,</span> <span class="token number">393</span><span class="token punctuation">,</span> <span class="token number">41526</span><span class="token punctuation">,</span> <span class="token number">16928800</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Belgium'</span><span class="token punctuation">,</span> <span class="token number">337</span><span class="token punctuation">,</span> <span class="token number">30510</span><span class="token punctuation">,</span> <span class="token number">11007020</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'United Kingdom'</span><span class="token punctuation">,</span> <span class="token number">256</span><span class="token punctuation">,</span> <span class="token number">243610</span><span class="token punctuation">,</span> <span class="token number">62262000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Germany'</span><span class="token punctuation">,</span> <span class="token number">233</span><span class="token punctuation">,</span> <span class="token number">357021</span><span class="token punctuation">,</span> <span class="token number">81799600</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Liechtenstein'</span><span class="token punctuation">,</span> <span class="token number">205</span><span class="token punctuation">,</span> <span class="token number">160</span><span class="token punctuation">,</span> <span class="token number">32842</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Italy'</span><span class="token punctuation">,</span> <span class="token number">192</span><span class="token punctuation">,</span> <span class="token number">301230</span><span class="token punctuation">,</span> <span class="token number">59715625</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Switzerland'</span><span class="token punctuation">,</span> <span class="token number">177</span><span class="token punctuation">,</span> <span class="token number">41290</span><span class="token punctuation">,</span> <span class="token number">7301994</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Luxembourg'</span><span class="token punctuation">,</span> <span class="token number">173</span><span class="token punctuation">,</span> <span class="token number">2586</span><span class="token punctuation">,</span> <span class="token number">512000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'France'</span><span class="token punctuation">,</span> <span class="token number">111</span><span class="token punctuation">,</span> <span class="token number">547030</span><span class="token punctuation">,</span> <span class="token number">63601002</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Austria'</span><span class="token punctuation">,</span> <span class="token number">97</span><span class="token punctuation">,</span> <span class="token number">83858</span><span class="token punctuation">,</span> <span class="token number">8169929</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Greece'</span><span class="token punctuation">,</span> <span class="token number">81</span><span class="token punctuation">,</span> <span class="token number">131940</span><span class="token punctuation">,</span> <span class="token number">11606813</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Ireland'</span><span class="token punctuation">,</span> <span class="token number">65</span><span class="token punctuation">,</span> <span class="token number">70280</span><span class="token punctuation">,</span> <span class="token number">4581269</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Sweden'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">449964</span><span class="token punctuation">,</span> <span class="token number">9515744</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Finland'</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">338424</span><span class="token punctuation">,</span> <span class="token number">5410233</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'Norway'</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">,</span> <span class="token number">385252</span><span class="token punctuation">,</span> <span class="token number">5033675</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+             dtype<span class="token operator">=</span>dt<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[('Netherlands', 393, 41526, 16928800) ('Belgium', 337, 30510, 11007020)
+ ('United Kingdom', 256, 243610, 62262000)
+ ('Germany', 233, 357021, 81799600)]
+</code></pre></div><div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token string">'density'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token string">'country'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>x<span class="token punctuation">[</span><span class="token string">'area'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[393 337 256 233 205 192 177 173 111  97  81  65  20  16  13]
+['Netherlands' 'Belgium' 'United Kingdom' 'Germany' 'Liechtenstein' 'Italy'
+ 'Switzerland' 'Luxembourg' 'France' 'Austria' 'Greece' 'Ireland' 'Sweden'
+ 'Finland' 'Norway']
+[243610 357021    160]
+</code></pre></div><p>下面是一个嵌套定义的结构类型，每一行记录有两个大类型，time 和 temperature， time又是一个结构类型，分别由 h min sec 构成；</p> <div class="language-python extra-class"><pre class="language-python"><code>time_type <span class="token operator">=</span> np<span class="token punctuation">.</span>dtype<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'time'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token string">'h'</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'min'</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token string">'sec'</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">'temperature'</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+times <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">20.8</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">13</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">23.2</span><span class="token punctuation">)</span> <span class="token punctuation">]</span><span class="token punctuation">,</span> dtype<span class="token operator">=</span>time_type<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>times<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>times<span class="token punctuation">[</span><span class="token string">'time'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>times<span class="token punctuation">[</span><span class="token string">'time'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'h'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>times<span class="token punctuation">[</span><span class="token string">'temperature'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[((11, 42, 17), 20.8) ((13, 19, 3), 23.2)]
+[(11, 42, 17) (13, 19, 3)]
+[11 13]
+[ 20.8  23.2]
+</code></pre></div><p>小结：</p> <ul><li><strong>类型可以嵌套定义组合</strong></li> <li><strong>确定一个表的最终类型时，可以看每一列是什么数据类型，然后每一列是一个二元tuple，即(fieldname, datatype),然后组合np.dtype([(f1,d1),(f2,d2),...(fn,dn)]);</strong></li> <li><strong>分解子datatype，如果dn不是基本datatype，则可以继续分解递归定义；</strong></li></ul> <h1 id="numpy-numerical-operations">Numpy numerical operations</h1> <h2 id="arithmetic-operations-with-two-arrays">Arithmetic Operations with two Arrays</h2> <p>对应位置元素 做某种操作运算</p> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>ones<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Adding to arrays: &quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">+</span> B<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;\nMultiplying two arrays: &quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">*</span> <span class="token punctuation">(</span>B <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>Adding to arrays: 
+[[ 12.  13.  14.]
+ [ 22.  23.  24.]
+ [ 32.  33.  34.]]
+
+Multiplying two arrays: 
+[[ 22.  24.  26.]
+ [ 42.  44.  46.]
+ [ 62.  64.  66.]]
+</code></pre></div><h2 id="matrix-multiplication">Matrix Multiplication</h2> <p>矩阵运算，点积dot product</p> <ul><li>dot(a, b, out=None)
+<ul><li>对于 2-D arrays, 点积运算等价于矩阵运算；对于 1-D arrays, 点积等价于内积 inner product即向量积；对于 N 维数组，点积是 <code>a</code> 的最后一个axis 和 <code>b</code> 的 倒数第二个axis 的和积；<strong>和积: 2-D 里就是'a'的每一个行向量和'b'的每一个列向量做 inner product</strong></li> <li>如果 'a' 的 最后一维长度 和 'b' 的倒数第二维长度不一样，抛出 ValueError； 例如， a.shape[-1] != b.shape[-2]</li></ul></li></ul> <h3 id="二维上的dot">二维上的dot</h3> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+               <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+               <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>A<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> B<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> A<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> 
+<span class="token keyword">print</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>(True, 3)
+[[ 7  7 17  4]
+ [ 9  9 19  0]]
+</code></pre></div><h3 id="三维上的dot">三维上的dot</h3> <div class="language-python extra-class"><pre class="language-python"><code>X <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+     <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+     
+     <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+     <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Y <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>
+    <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+     <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+R <span class="token operator">=</span> np<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>X<span class="token punctuation">,</span> Y<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;X.shape: &quot;</span><span class="token punctuation">,</span> X<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> <span class="token string">&quot;   X.ndim: &quot;</span><span class="token punctuation">,</span> X<span class="token punctuation">.</span>ndim<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Y.shape: &quot;</span><span class="token punctuation">,</span> Y<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> <span class="token string">&quot;   Y.ndim: &quot;</span><span class="token punctuation">,</span> Y<span class="token punctuation">.</span>ndim<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;R.shape: &quot;</span><span class="token punctuation">,</span>     R<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> <span class="token string">&quot;R.ndim: &quot;</span><span class="token punctuation">,</span> R<span class="token punctuation">.</span>ndim<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;\nThe result array R:\n&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>R<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>('X.shape: ', (4, 2, 3), '   X.ndim: ', 3)
+('Y.shape: ', (2, 3, 5), '   Y.ndim: ', 3)
+('R.shape: ', (4, 2, 2, 5), 'R.ndim: ', 4)
+
+The result array R:
+
+[[[[ 14  19   5   8   1]
+   [ 15  15  10  16   3]]
+
+  [[ 18  24   8  10   2]
+   [ 20  20  14  22   2]]]
+
+
+ [[[  1   1  -1  -1  -2]
+   [  3  -3  -3   1  -2]]
+
+  [[ -6  -7  -1   0   3]
+   [-11   1   2  -8   5]]]
+
+
+ [[[ 16  21   7   8   1]
+   [ 19  16  11  20   0]]
+
+  [[ 25  32  12  11   1]
+   [ 32  23  16  33  -4]]]
+
+
+ [[[ 11  14   6   5   1]
+   [ 14  11   8  15  -2]]
+
+  [[ 17  23   5   9   0]
+   [ 19  16  10  19   3]]]]
+</code></pre></div><p>按照 dot 对 n 维的定义，</p> <ul><li>3 维应该是 X.shape[2] 和 Y.shape[1] 做 sum product；他们在各自维度上长度都是 3；该维度会被吞并成为一个scalar，最后结果为 shape 为 <code>(X.shape[0], X.shape[1], Y.shape[0], Y.shape[2])</code> 的array；</li> <li><strong>如果是 n 维度的， 那么最后结果就是 <code>(X.shape[0], X.shape[1],..., X.shape[-2], Y.shape[0],..., Y.shape[-1])</code></strong></li></ul> <p>以 R[0] 为例，它是 R 的 axis = 0 维度的第一个元素， 那么该元素列表应该是由剩余的维度做 sum product得到；</p> <p>\begin{equation}
+\begin{bmatrix}
+3 &amp; 1 &amp; 2
+\end{bmatrix}*
+\begin{bmatrix}
+2 \\
+2 \\
+3
+\end{bmatrix}=14
+\end{equation}</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token comment"># 这里由于第一个维度 固定是第0个元素，因此 i = 0；不进行循环；</span>
+i <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>X<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>Y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> m <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>Y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            fmt <span class="token operator">=</span> <span class="token string">&quot;    sum(X[{}, {}, :] * Y[{}, :, {}]) :  {}&quot;</span>
+            arguments <span class="token operator">=</span> <span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">,</span> m<span class="token punctuation">,</span> <span class="token builtin">sum</span><span class="token punctuation">(</span>X<span class="token punctuation">[</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span> <span class="token operator">*</span> Y<span class="token punctuation">[</span>k<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> m<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span><span class="token operator">*</span>arguments<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            
+<span class="token keyword">print</span> R<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+</code></pre></div><div class="language- extra-class"><pre><code>    sum(X[0, 0, :] * Y[0, :, 0]) :  14
+    sum(X[0, 0, :] * Y[0, :, 1]) :  19
+    sum(X[0, 0, :] * Y[0, :, 2]) :  5
+    sum(X[0, 0, :] * Y[0, :, 3]) :  8
+    sum(X[0, 0, :] * Y[0, :, 4]) :  1
+    sum(X[0, 0, :] * Y[1, :, 0]) :  15
+    sum(X[0, 0, :] * Y[1, :, 1]) :  15
+    sum(X[0, 0, :] * Y[1, :, 2]) :  10
+    sum(X[0, 0, :] * Y[1, :, 3]) :  16
+    sum(X[0, 0, :] * Y[1, :, 4]) :  3
+    sum(X[0, 1, :] * Y[0, :, 0]) :  18
+    sum(X[0, 1, :] * Y[0, :, 1]) :  24
+    sum(X[0, 1, :] * Y[0, :, 2]) :  8
+    sum(X[0, 1, :] * Y[0, :, 3]) :  10
+    sum(X[0, 1, :] * Y[0, :, 4]) :  2
+    sum(X[0, 1, :] * Y[1, :, 0]) :  20
+    sum(X[0, 1, :] * Y[1, :, 1]) :  20
+    sum(X[0, 1, :] * Y[1, :, 2]) :  14
+    sum(X[0, 1, :] * Y[1, :, 3]) :  22
+    sum(X[0, 1, :] * Y[1, :, 4]) :  2
+[[[14 19  5  8  1]
+  [15 15 10 16  3]]
+
+ [[18 24  8 10  2]
+  [20 20 14 22  2]]]
+</code></pre></div><div class="language-python extra-class"><pre class="language-python"><code>R2 <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>R<span class="token punctuation">.</span>shape<span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span><span class="token builtin">int</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>X<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>X<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>Y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> m <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>Y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                R2<span class="token punctuation">[</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">,</span> m<span class="token punctuation">]</span> <span class="token operator">=</span> np<span class="token punctuation">.</span>dot<span class="token punctuation">(</span>X<span class="token punctuation">[</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">,</span>Y<span class="token punctuation">[</span>k<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> m<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span> np<span class="token punctuation">.</span>array_equal<span class="token punctuation">(</span>R<span class="token punctuation">,</span> R2<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>True
+</code></pre></div><p>以上就是三维 dot 的内部工作机制，<strong>其实就是简单的循环累加，弄清楚我们需要做 sum product 的是哪一个维度，因为这个维度会被合并降维成一个scalar，剩下的维度做循环即可。</strong></p> <h2 id="comparison-operators">Comparison Operators</h2> <p>numpy中的 比较运算符返回的并不是 Python 中的 一个单一的 True 或 False, 而是一个array，里面每一个元素都是bool，是element-wise比较；因为 Python 中 True == 1 False == 0; 因此</p> <ul><li>求两个array对应位置相等元素的位置索引
+<ul><li>A[np.nonzero(A==B)]</li></ul></li> <li>求两个array对应元素相等的个数，使用
+<ul><li>len(np.flatnonzero(A==B))</li></ul></li> <li>求相同元素百分比：
+<ul><li>np.mean(A==B)</li></ul></li></ul> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">102</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">201</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">203</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">303</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+common <span class="token operator">=</span> A <span class="token operator">==</span> B
+<span class="token keyword">print</span> common
+<span class="token keyword">print</span> A<span class="token punctuation">[</span>np<span class="token punctuation">.</span>nonzero<span class="token punctuation">(</span>A<span class="token operator">==</span>B<span class="token punctuation">)</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> <span class="token builtin">len</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>flatnonzero<span class="token punctuation">(</span>common<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>mean<span class="token punctuation">(</span>A<span class="token operator">==</span>B<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[[ True False  True]
+ [False  True False]
+ [ True  True False]]
+[11 13 22 31 32]
+5
+0.555555555556
+</code></pre></div><h2 id="broadcasting">Broadcasting</h2> <p>广播是numpy很重要的一个功能，这里介绍在numpy array shape 里面提到的与shape 和 axis有关的广播；</p> <div class="language-python extra-class"><pre class="language-python"><code>B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> B<span class="token punctuation">.</span>shape
+B
+</code></pre></div><div class="language- extra-class"><pre><code>(3, 3)
+
+array([[1, 2, 3],
+       [1, 2, 3],
+       [1, 2, 3]])
+</code></pre></div><p>注意以上并不是广播，这是Python自带的循环重复元素的写法；我们先介绍一个升维的方法，np.newaxis。</p> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">41</span><span class="token punctuation">,</span> <span class="token number">42</span><span class="token punctuation">,</span> <span class="token number">43</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span>
+<span class="token keyword">print</span> A<span class="token punctuation">.</span>shape
+A1 <span class="token operator">=</span> A<span class="token punctuation">[</span>np<span class="token punctuation">.</span>newaxis<span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+A2 <span class="token operator">=</span> A<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>newaxis<span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">]</span>
+A3 <span class="token operator">=</span> A<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span><span class="token punctuation">:</span><span class="token punctuation">,</span>np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>A1<span class="token punctuation">)</span>
+<span class="token keyword">print</span> A1<span class="token punctuation">.</span>shape
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>A2<span class="token punctuation">)</span>
+<span class="token keyword">print</span> A2<span class="token punctuation">.</span>shape
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>A3<span class="token punctuation">)</span>
+<span class="token keyword">print</span> A3<span class="token punctuation">.</span>shape
+
+AA <span class="token operator">=</span> A<span class="token punctuation">[</span>np<span class="token punctuation">.</span>newaxis<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>AA<span class="token punctuation">)</span>
+<span class="token keyword">print</span> AA<span class="token punctuation">.</span>shape
+</code></pre></div><div class="language- extra-class"><pre><code>array([[11, 12, 13],
+       [21, 22, 23],
+       [31, 32, 33],
+       [41, 42, 43]])
+(4, 3)
+array([[[11, 12, 13],
+        [21, 22, 23],
+        [31, 32, 33],
+        [41, 42, 43]]])
+(1, 4, 3)
+array([[[11, 12, 13]],
+
+       [[21, 22, 23]],
+
+       [[31, 32, 33]],
+
+       [[41, 42, 43]]])
+(4, 1, 3)
+array([[[11],
+        [12],
+        [13]],
+
+       [[21],
+        [22],
+        [23]],
+
+       [[31],
+        [32],
+        [33]],
+
+       [[41],
+        [42],
+        [43]]])
+(4, 3, 1)
+array([[[[11],
+         [12],
+         [13]],
+
+        [[21],
+         [22],
+         [23]],
+
+        [[31],
+         [32],
+         [33]],
+
+        [[41],
+         [42],
+         [43]]]])
+(1, 4, 3, 1)
+</code></pre></div><p>可以看出，<strong>np.newaxis 就是增加一个维度，并且增加的维度与其插入的位置有关，插入到第几个位置，就成为第几个维度，原始的维度值保持不变；</strong></p> <blockquote><p>np.newaxis是如何改变原始array的呢？</p></blockquote> <p><strong>递归列表未完待续</strong></p> <ul><li>目前有一种tricks，就是看插入位置的[]加在哪里。新轴在第2个维度，那么就给原本第1个维度的每一个元素加个[],新轴在第三维度，就在原本第2个维度的每一个元素加个[]</li></ul> <h3 id="广播进行的方向">广播进行的方向</h3> <div class="language-python extra-class"><pre class="language-python"><code>B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> B<span class="token punctuation">.</span>shape
+B1 <span class="token operator">=</span> B<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span>
+B1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">7</span>
+<span class="token keyword">print</span> B
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>B1<span class="token punctuation">)</span>
+B1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+A <span class="token operator">*</span> B<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span>
+</code></pre></div><div class="language- extra-class"><pre><code>(3,)
+[7 2 3]
+array([[7],
+       [2],
+       [3]])
+
+
+
+---------------------------------------------------------------------------
+
+ValueError                                Traceback (most recent call last)
+
+&lt;ipython-input-192-d31486c531b6&gt; in &lt;module&gt;()
+      6 print repr(B1)
+      7 B1[0] = 1
+----&gt; 8 A * B[:, np.newaxis]
+
+
+ValueError: operands could not be broadcast together with shapes (4,3) (3,1) 
+</code></pre></div><p><img src="/images/blog/2017/numpynotes-1-basics-and-core/broadcasting_example_1.png" alt="broadcasting_example_1"></p> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>A<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>A<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span> <span class="token operator">*</span> B<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>array([[10],
+       [20],
+       [30]])
+array([[10, 20, 30],
+       [20, 40, 60],
+       [30, 60, 90]])
+</code></pre></div><p><img src="/images/blog/2017/numpynotes-1-basics-and-core/broadcasting_example_2.png" alt="broadcasting_example_2"></p> <p>以下是实现以上操作的另外两种实现，显式的使用了 concatenate 和 tile 方法升维；</p> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> B<span class="token punctuation">[</span>np<span class="token punctuation">.</span>newaxis<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>concatenate<span class="token punctuation">(</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> B<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Multiplication: &quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">*</span> B<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;... and now addition again: &quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">+</span> B<span class="token punctuation">)</span>
+
+A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">11</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">31</span><span class="token punctuation">,</span> <span class="token number">32</span><span class="token punctuation">,</span> <span class="token number">33</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Multiplication: &quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">*</span> B<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;... and now addition again: &quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">+</span> B<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>Multiplication: 
+[[11 24 39]
+ [21 44 69]
+ [31 64 99]]
+... and now addition again: 
+[[12 14 16]
+ [22 24 26]
+ [32 34 36]]
+[[1 2 3]
+ [1 2 3]
+ [1 2 3]]
+Multiplication: 
+[[11 24 39]
+ [21 44 69]
+ [31 64 99]]
+... and now addition again: 
+[[12 14 16]
+ [22 24 26]
+ [32 34 36]]
+</code></pre></div><h3 id="三维空间broadcasting">三维空间broadcasting</h3> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">*</span> A
+
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> B<span class="token punctuation">[</span>np<span class="token punctuation">.</span>newaxis<span class="token punctuation">,</span> <span class="token punctuation">:</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>B<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>concatenate<span class="token punctuation">(</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> B<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>transpose<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>B<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
+B <span class="token operator">=</span> B<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>B<span class="token punctuation">.</span>shape<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A <span class="token operator">*</span> B<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>(1, 3)
+(3, 3)
+(3, 1, 3)
+[[[1 1 1]]
+
+ [[2 2 2]]
+
+ [[3 3 3]]]
+[[[ 3  4  7]
+  [ 5  0 -1]
+  [ 2  1  5]]
+
+ [[ 2  0 -2]
+  [16  4  8]
+  [10  4  2]]
+
+ [[ 6  3  9]
+  [ 3 27 12]
+  [15 -6 12]]]
+</code></pre></div><p>小结：</p> <blockquote><p>Broadcasting provides a means of vectorizing array operations so that looping occurs in C instead of Python. It does this without making needless copies of data and usually leads to efficient algorithm implementations. There are, however, cases where broadcasting is a bad idea because it leads to inefficient use of memory that slows computation.</p></blockquote> <p>广播是numpy提供的向量化数组的操作，能够使得循环发生在 C 代码级别，而不是在 Python 级别，从而提高执行速度，但这种加速是有限制的，如果数组过于庞大，会进行大量的复制操作，反而会减慢计算速度，从而更加低效；<a href="http://scipy.github.io/old-wiki/pages/EricsBroadcastingDoc" target="_blank" rel="nofollow noopener noreferrer">numpy broadcasting efficiency<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>广播规则：</p> <ol><li><strong>如果两个 array 的 rank 即 len(shape) 不同，那么给较低的array的 shape 在前面加上(prepend) 1 从而升维，直到低维array的shape和高维array的shape长度一样，即len(x.shape) == len(y.shape)；</strong> 例如 x.shape = (1,2,3) y.shape = (3,) 则 y.shape = (1,1,3)</li> <li><strong>两个数组某个维度上兼容<code>compatible</code>,就是该维度长度要么相等，要么其中之一是1；</strong></li> <li><strong>只有所有维度<code>compatible</code>数组才能进行合法自动广播；</strong></li> <li><strong>广播之后，每一个数组，在每一个维度上就变成相同的了，且等于较大者；</strong></li> <li><strong>在某个维度上长度为1的数组会进行广播，就是沿着这个维度复制剩余维度的元素，使得该维度长度变长到两个数组中较大者；</strong></li></ol> <h1 id="numpy-changing-dimensions">Numpy changing dimensions</h1> <h2 id="flatten">flatten</h2> <p>多维数组退化成一维</p> <ul><li>flatten()</li> <li>ravel()</li></ul> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span> <span class="token number">2</span><span class="token punctuation">,</span>  <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span> <span class="token number">4</span><span class="token punctuation">,</span>  <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span> <span class="token number">6</span><span class="token punctuation">,</span>  <span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token number">8</span><span class="token punctuation">,</span>  <span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">11</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">13</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">16</span><span class="token punctuation">,</span> <span class="token number">17</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">18</span><span class="token punctuation">,</span> <span class="token number">19</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">21</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+               <span class="token punctuation">[</span><span class="token number">22</span><span class="token punctuation">,</span> <span class="token number">23</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+Flattened_X <span class="token operator">=</span> A<span class="token punctuation">.</span>flatten<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>Flattened_X<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A<span class="token punctuation">.</span>flatten<span class="token punctuation">(</span>order<span class="token operator">=</span><span class="token string">&quot;C&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A<span class="token punctuation">.</span>flatten<span class="token punctuation">(</span>order<span class="token operator">=</span><span class="token string">&quot;F&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>A<span class="token punctuation">.</span>flatten<span class="token punctuation">(</span>order<span class="token operator">=</span><span class="token string">&quot;A&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23]
+[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23]
+[ 0  8 16  2 10 18  4 12 20  6 14 22  1  9 17  3 11 19  5 13 21  7 15 23]
+[ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23]
+</code></pre></div><h2 id="reshape">reshape</h2> <p>整形，总数不变的情况下生成另一个shape的array</p> <ul><li>reshape(a, newshape, order='C')
+<ul><li>order	'C', 'F', 'A', 代表展开顺序，C-style 首维最慢，尾维最快，F-style 按列展开，首维最快，尾维最慢</li> <li>‘C’ means to read / write the elements using C-like index order, with the last axis index changing fastest, back to the first axis index changing slowest.</li> <li>‘F’ means to read / write the elements using Fortran-like index order, with the first index changing fastest, and the last index changing slowest.</li> <li>read/write就表示，读取原来的数组，按照order方式，然后生成新shape的数组，也按order方式写入；</li></ul></li></ul> <div class="language-python extra-class"><pre class="language-python"><code>X <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+Y <span class="token operator">=</span> X<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>Y<span class="token punctuation">)</span>
+Z <span class="token operator">=</span> Y<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>order<span class="token operator">=</span><span class="token string">'F'</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>Z<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>array([[[ 0,  1],
+        [ 2,  3],
+        [ 4,  5],
+        [ 6,  7]],
+
+       [[ 8,  9],
+        [10, 11],
+        [12, 13],
+        [14, 15]],
+
+       [[16, 17],
+        [18, 19],
+        [20, 21],
+        [22, 23]]])
+array([[[ 0,  1],
+        [10, 11],
+        [20, 21]],
+
+       [[ 8,  9],
+        [18, 19],
+        [ 6,  7]],
+
+       [[16, 17],
+        [ 4,  5],
+        [14, 15]],
+
+       [[ 2,  3],
+        [12, 13],
+        [22, 23]]])
+</code></pre></div><p>整形的真实过程其实像如下代码一样，最后验证我们的判断是正确的，即<strong>先按照 order 读取原数组为一个一维的数组，然后再将一维数组中的元素按照 order 写入新shape的array中；</strong></p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token comment"># F style read</span>
+temp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>Y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>Y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>Y<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            temp<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Y<span class="token punctuation">[</span>k<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> temp
+
+<span class="token comment"># F style write</span>
+newshape <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
+result <span class="token operator">=</span> np<span class="token punctuation">.</span>zeros<span class="token punctuation">(</span>newshape<span class="token punctuation">,</span> dtype<span class="token operator">=</span>np<span class="token punctuation">.</span>int32<span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>newshape<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>newshape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>newshape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            result<span class="token punctuation">[</span>k<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i <span class="token operator">*</span> newshape<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">*</span> newshape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> j <span class="token operator">*</span> newshape<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> k<span class="token punctuation">]</span>
+<span class="token keyword">print</span> result <span class="token operator">==</span> Z
+    
+</code></pre></div><div class="language- extra-class"><pre><code>[0, 8, 16, 2, 10, 18, 4, 12, 20, 6, 14, 22, 1, 9, 17, 3, 11, 19, 5, 13, 21, 7, 15, 23]
+[[[ True  True]
+  [ True  True]
+  [ True  True]]
+
+ [[ True  True]
+  [ True  True]
+  [ True  True]]
+
+ [[ True  True]
+  [ True  True]
+  [ True  True]]
+
+ [[ True  True]
+  [ True  True]
+  [ True  True]]]
+</code></pre></div><h2 id="concatenating-arrays">Concatenating Arrays</h2> <p>numpy.concatenate((a1, a2, ...), axis=0)</p> <ul><li>axis : int, optional
+The axis along which the arrays will be joined. Default is 0.</li></ul> <p>沿着axis进行连接，使得该维度的元素成为一组；</p> <h3 id="对一维数组的连接">对一维数组的连接</h3> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">77</span><span class="token punctuation">,</span><span class="token number">777</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+C <span class="token operator">=</span> np<span class="token punctuation">.</span>concatenate<span class="token punctuation">(</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span>B<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> A<span class="token punctuation">,</span>B<span class="token punctuation">,</span>C
+</code></pre></div><div class="language- extra-class"><pre><code>[  7  77 777] [3 1 2] [  7  77 777   3   1   2]
+</code></pre></div><h3 id="对二维数组的连接">对二维数组的连接</h3> <div class="language-python extra-class"><pre class="language-python"><code>x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+x <span class="token operator">=</span> x<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">124</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> y<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+z <span class="token operator">=</span> np<span class="token punctuation">.</span>concatenate<span class="token punctuation">(</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[[[  0   1]
+  [  2   3]
+  [  4   5]
+  [  6   7]]
+
+ [[  8   9]
+  [ 10  11]
+  [ 12  13]
+  [ 14  15]]
+
+ [[ 16  17]
+  [ 18  19]
+  [ 20  21]
+  [ 22  23]]
+
+ [[100 101]
+  [102 103]
+  [104 105]
+  [106 107]]
+
+ [[108 109]
+  [110 111]
+  [112 113]
+  [114 115]]
+
+ [[116 117]
+  [118 119]
+  [120 121]
+  [122 123]]]
+</code></pre></div><div class="language-python extra-class"><pre class="language-python"><code>z <span class="token operator">=</span> np<span class="token punctuation">.</span>concatenate<span class="token punctuation">(</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">,</span>axis <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>z<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[[[  0   1]
+  [  2   3]
+  [  4   5]
+  [  6   7]
+  [100 101]
+  [102 103]
+  [104 105]
+  [106 107]]
+
+ [[  8   9]
+  [ 10  11]
+  [ 12  13]
+  [ 14  15]
+  [108 109]
+  [110 111]
+  [112 113]
+  [114 115]]
+
+ [[ 16  17]
+  [ 18  19]
+  [ 20  21]
+  [ 22  23]
+  [116 117]
+  [118 119]
+  [120 121]
+  [122 123]]]
+</code></pre></div><p>**万变不离其宗，与 axis 和 shape 有关的操作，都是递归确定在哪一个维度上进行，然后就是合并，降维，sum product等等;**这里就是合并；第二个维度即第二个括号里面的元素，同级的第二个括号里面的元素重新合并在一起了。</p> <h2 id="adding-new-dimensions">Adding New Dimensions</h2> <div class="language-python extra-class"><pre class="language-python"><code>x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">18</span><span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+y <span class="token operator">=</span> x<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">,</span> np<span class="token punctuation">.</span>newaxis<span class="token punctuation">]</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[[ 2]
+ [ 5]
+ [18]
+ [14]
+ [ 4]]
+</code></pre></div><h2 id="vector-stacking">Vector Stacking</h2> <div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+B <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>row_stack<span class="token punctuation">(</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>column_stack<span class="token punctuation">(</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+np<span class="token punctuation">.</span>shape<span class="token punctuation">(</span>A<span class="token punctuation">)</span>
+
+</code></pre></div><div class="language- extra-class"><pre><code>[[3 4 5]
+ [1 9 0]]
+[[3 1]
+ [4 9]
+ [5 0]]
+
+(3,)
+</code></pre></div><div class="language-python extra-class"><pre class="language-python"><code>A <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>column_stack<span class="token punctuation">(</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> A<span class="token punctuation">,</span> A<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>column_stack<span class="token punctuation">(</span><span class="token punctuation">(</span>A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> A<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>dstack<span class="token punctuation">(</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> A<span class="token punctuation">,</span> A<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>array([[3, 4, 5, 3, 4, 5, 3, 4, 5],
+       [1, 9, 0, 1, 9, 0, 1, 9, 0],
+       [4, 6, 8, 4, 6, 8, 4, 6, 8]])
+array([[3, 3, 3],
+       [4, 4, 4],
+       [5, 5, 5]])
+array([[[3, 3, 3],
+        [4, 4, 4],
+        [5, 5, 5]],
+
+       [[1, 1, 1],
+        [9, 9, 9],
+        [0, 0, 0]],
+
+       [[4, 4, 4],
+        [6, 6, 6],
+        [8, 8, 8]]])
+</code></pre></div><h2 id="repeating-patterns-the-tile-method">Repeating Patterns, The &quot;tile&quot; Method</h2> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+x <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>np<span class="token punctuation">.</span>tile<span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>[[1 2 1 2 1 2 1 2]
+ [3 4 3 4 3 4 3 4]
+ [1 2 1 2 1 2 1 2]
+ [3 4 3 4 3 4 3 4]
+ [1 2 1 2 1 2 1 2]
+ [3 4 3 4 3 4 3 4]]
+[[1 2 1 2]
+ [3 4 3 4]]
+</code></pre></div></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">1/12/2024, 11:01:31 PM</span></div></footer> <!----> <div class="comments-wrapper"><!----></div></main></div> <!----></div> <ul class="sub-sidebar sub-sidebar-wrapper" style="width:12rem;" data-v-b57cc07c data-v-7dd95ae2><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#numpy-array-creation" class="sidebar-link reco-side-numpy-array-creation" data-v-b57cc07c>Numpy array creation</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#创建均匀分布的值" class="sidebar-link reco-side-创建均匀分布的值" data-v-b57cc07c>创建均匀分布的值</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#arange" class="sidebar-link reco-side-arange" data-v-b57cc07c>arange</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#linspace" class="sidebar-link reco-side-linspace" data-v-b57cc07c>linspace</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#创建多维数组ndarray" class="sidebar-link reco-side-创建多维数组ndarray" data-v-b57cc07c>创建多维数组ndarray</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#_0维数组" class="sidebar-link reco-side-_0维数组" data-v-b57cc07c>0维数组</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#_1维数组" class="sidebar-link reco-side-_1维数组" data-v-b57cc07c>1维数组</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#多维数组" class="sidebar-link reco-side-多维数组" data-v-b57cc07c>多维数组</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#ndarray-shape-和-axis" class="sidebar-link reco-side-ndarray-shape-和-axis" data-v-b57cc07c>ndarray shape 和 axis</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#索引和切片-indexing-slicing" class="sidebar-link reco-side-索引和切片-indexing-slicing" data-v-b57cc07c>索引和切片（indexing &amp; slicing）</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#内存共享" class="sidebar-link reco-side-内存共享" data-v-b57cc07c>内存共享</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#创建特殊array-数组copy" class="sidebar-link reco-side-创建特殊array-数组copy" data-v-b57cc07c>创建特殊array &amp; 数组copy</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#numpy-data-type" class="sidebar-link reco-side-numpy-data-type" data-v-b57cc07c>Numpy data type</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#dtype" class="sidebar-link reco-side-dtype" data-v-b57cc07c>dtype</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#numpy-numerical-operations" class="sidebar-link reco-side-numpy-numerical-operations" data-v-b57cc07c>Numpy numerical operations</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#arithmetic-operations-with-two-arrays" class="sidebar-link reco-side-arithmetic-operations-with-two-arrays" data-v-b57cc07c>Arithmetic Operations with two Arrays</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#matrix-multiplication" class="sidebar-link reco-side-matrix-multiplication" data-v-b57cc07c>Matrix Multiplication</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#二维上的dot" class="sidebar-link reco-side-二维上的dot" data-v-b57cc07c>二维上的dot</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#三维上的dot" class="sidebar-link reco-side-三维上的dot" data-v-b57cc07c>三维上的dot</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#comparison-operators" class="sidebar-link reco-side-comparison-operators" data-v-b57cc07c>Comparison Operators</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#broadcasting" class="sidebar-link reco-side-broadcasting" data-v-b57cc07c>Broadcasting</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#广播进行的方向" class="sidebar-link reco-side-广播进行的方向" data-v-b57cc07c>广播进行的方向</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#三维空间broadcasting" class="sidebar-link reco-side-三维空间broadcasting" data-v-b57cc07c>三维空间broadcasting</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#numpy-changing-dimensions" class="sidebar-link reco-side-numpy-changing-dimensions" data-v-b57cc07c>Numpy changing dimensions</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#flatten" class="sidebar-link reco-side-flatten" data-v-b57cc07c>flatten</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#reshape" class="sidebar-link reco-side-reshape" data-v-b57cc07c>reshape</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#concatenating-arrays" class="sidebar-link reco-side-concatenating-arrays" data-v-b57cc07c>Concatenating Arrays</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#对一维数组的连接" class="sidebar-link reco-side-对一维数组的连接" data-v-b57cc07c>对一维数组的连接</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#对二维数组的连接" class="sidebar-link reco-side-对二维数组的连接" data-v-b57cc07c>对二维数组的连接</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#adding-new-dimensions" class="sidebar-link reco-side-adding-new-dimensions" data-v-b57cc07c>Adding New Dimensions</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#vector-stacking" class="sidebar-link reco-side-vector-stacking" data-v-b57cc07c>Vector Stacking</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/numpynotes-1-basics-and-core.html#repeating-patterns-the-tile-method" class="sidebar-link reco-side-repeating-patterns-the-tile-method" data-v-b57cc07c>Repeating Patterns, The &quot;tile&quot; Method</a></li></ul></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div></div></div>
+    <script src="/assets/js/app.328459c7.js" defer></script><script src="/assets/js/3.f94842e7.js" defer></script><script src="/assets/js/1.696ef8d7.js" defer></script><script src="/assets/js/17.9a5ee87b.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Python Decorator(1) | CocoMetaverse</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="装饰器的实现,得益于 Python 支持函数式编程! 因此, 记住, 装饰器的本质是函数式! 函数式编程,可以查看我的一篇基础教程! 从另一个角度来讲, 更多的是动态的修改代码! 需要注意的是, Python Decorator 并不是装饰器模式, 虽然他可以很方便的实现装饰器模式. 我更多的理解是, Python Decorator 是 code decorator, 就是动态修改代码的特性!">
+    <meta name="twitter:title" content="Python Decorator(1)">
+    <meta name="twitter:description" content="装饰器的实现,得益于 Python 支持函数式编程! 因此, 记住, 装饰器的本质是函数式! 函数式编程,可以查看我的一篇基础教程! 从另一个角度来讲, 更多的是动态的修改代码! 需要注意的是, Python Decorator 并不是装饰器模式, 虽然他可以很方便的实现装饰器模式. 我更多的理解是, Python Decorator 是 code decorator, 就是动态修改代码的特性!">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:url" content="https://coco.hacksmeta.com/blogs/2017/python-decorator-1.html">
+    <meta name="twitter:site" content="@kinnyfly">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Python Decorator(1)">
+    <meta property="og:description" content="装饰器的实现,得益于 Python 支持函数式编程! 因此, 记住, 装饰器的本质是函数式! 函数式编程,可以查看我的一篇基础教程! 从另一个角度来讲, 更多的是动态的修改代码! 需要注意的是, Python Decorator 并不是装饰器模式, 虽然他可以很方便的实现装饰器模式. 我更多的理解是, Python Decorator 是 code decorator, 就是动态修改代码的特性!">
+    <meta property="og:url" content="https://coco.hacksmeta.com/blogs/2017/python-decorator-1.html">
+    <meta property="og:site_name" content="coco">
+    <meta property="article:published_time" content="2017-04-24T00:00:00.000Z">
+    <meta property="article:tag" content="python">
+    <meta itemprop="name" content="Python Decorator(1)">
+    <meta itemprop="description" content="装饰器的实现,得益于 Python 支持函数式编程! 因此, 记住, 装饰器的本质是函数式! 函数式编程,可以查看我的一篇基础教程! 从另一个角度来讲, 更多的是动态的修改代码! 需要注意的是, Python Decorator 并不是装饰器模式, 虽然他可以很方便的实现装饰器模式. 我更多的理解是, Python Decorator 是 code decorator, 就是动态修改代码的特性!">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="baidu-site-verification" content="codeva-0IENWLQylP">
+    <meta name="google-site-verification" content="c61DXiMcjorKFxoYPTVYy_DRgBqBQ13VBt-TkGwpWAQ">
+    <meta name="sogou_site_verification" content="fMGiPgPETm">
+    <meta name="msvalidate.01" content="44214DFBCE99B820C08366C7A9449E3F">
+    <meta name="shenma-site-verification" content="2dfafdffe9163bdb878cf9681b0bf3b0_1704528471">
+    
+    <link rel="preload" href="/assets/css/0.styles.6472c706.css" as="style"><link rel="preload" href="/assets/js/app.328459c7.js" as="script"><link rel="preload" href="/assets/js/3.f94842e7.js" as="script"><link rel="preload" href="/assets/js/1.696ef8d7.js" as="script"><link rel="preload" href="/assets/js/18.74e4c23b.js" as="script"><link rel="prefetch" href="/assets/js/10.b3af070e.js"><link rel="prefetch" href="/assets/js/11.c17414a0.js"><link rel="prefetch" href="/assets/js/12.52bbc0c5.js"><link rel="prefetch" href="/assets/js/13.cb81ff4b.js"><link rel="prefetch" href="/assets/js/14.7cc3ac16.js"><link rel="prefetch" href="/assets/js/15.0b60fb03.js"><link rel="prefetch" href="/assets/js/16.b69e0e45.js"><link rel="prefetch" href="/assets/js/17.9a5ee87b.js"><link rel="prefetch" href="/assets/js/19.4161bd37.js"><link rel="prefetch" href="/assets/js/20.b8bd88e7.js"><link rel="prefetch" href="/assets/js/21.0f7e4fe0.js"><link rel="prefetch" href="/assets/js/22.ba1071d2.js"><link rel="prefetch" href="/assets/js/23.3ac16df6.js"><link rel="prefetch" href="/assets/js/24.df46509b.js"><link rel="prefetch" href="/assets/js/25.00e8b8a8.js"><link rel="prefetch" href="/assets/js/26.4399212b.js"><link rel="prefetch" href="/assets/js/27.33fc774f.js"><link rel="prefetch" href="/assets/js/28.6590f188.js"><link rel="prefetch" href="/assets/js/29.770efeb4.js"><link rel="prefetch" href="/assets/js/4.ef78af17.js"><link rel="prefetch" href="/assets/js/5.7f88bc0b.js"><link rel="prefetch" href="/assets/js/6.d864745e.js"><link rel="prefetch" href="/assets/js/7.ab89c76a.js"><link rel="prefetch" href="/assets/js/8.3b019054.js"><link rel="prefetch" href="/assets/js/9.4667b609.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.6472c706.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar" data-v-7dd95ae2><div data-v-7dd95ae2><div class="password-shadow password-wrapper-out" style="display:none;" data-v-59e6cb88 data-v-7dd95ae2 data-v-7dd95ae2><h3 class="title" data-v-59e6cb88>CocoMetaverse</h3> <p class="description" data-v-59e6cb88>可可的元宇宙，探索无限可能，分享云计算、人工智能、元认知迭代</p> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>coco</span>
+          
+        <span data-v-59e6cb88>2017 - </span>
+        2024
+      </a></span></div></div> <div class="hide" data-v-7dd95ae2><header class="navbar" data-v-7dd95ae2><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.png" alt="CocoMetaverse" class="logo"> <span class="site-name">CocoMetaverse</span></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Blog
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      Docs
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/metahacks/" class="nav-link"><i class="undefined"></i>
+  metahacks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/cloud/" class="nav-link"><i class="undefined"></i>
+  cloud
+</a></li><li class="dropdown-item"><!----> <a href="/docs/ai/" class="nav-link"><i class="undefined"></i>
+  ai
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-menu"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/kitianFresh" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-7dd95ae2></div> <aside class="sidebar" data-v-7dd95ae2><div class="personal-info-wrapper" data-v-1fad0c41 data-v-7dd95ae2><img src="/avatar.png" alt="author-avatar" class="personal-img" data-v-1fad0c41> <h3 class="name" data-v-1fad0c41>
+    coco
+  </h3> <div class="num" data-v-1fad0c41><div data-v-1fad0c41><h3 data-v-1fad0c41>17</h3> <h6 data-v-1fad0c41>Articles</h6></div> <div data-v-1fad0c41><h3 data-v-1fad0c41>46</h3> <h6 data-v-1fad0c41>Tags</h6></div></div> <ul class="social-links" data-v-1fad0c41></ul> <hr data-v-1fad0c41></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  Home
+</a></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Blog
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      Docs
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/metahacks/" class="nav-link"><i class="undefined"></i>
+  metahacks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/cloud/" class="nav-link"><i class="undefined"></i>
+  cloud
+</a></li><li class="dropdown-item"><!----> <a href="/docs/ai/" class="nav-link"><i class="undefined"></i>
+  ai
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-menu"></i>
+      Contact
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="https://github.com/kitianFresh" target="_blank" rel="noopener noreferrer" class="nav-link external"><i class="iconfont reco-github"></i>
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></div> <!----></nav> <!----> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-59e6cb88 data-v-7dd95ae2><h3 class="title" data-v-59e6cb88>Python Decorator(1)</h3> <!----> <label id="box" class="inputBox" data-v-59e6cb88><input type="password" value="" data-v-59e6cb88> <span data-v-59e6cb88>Konck! Knock!</span> <button data-v-59e6cb88>OK</button></label> <div class="footer" data-v-59e6cb88><span data-v-59e6cb88><i class="iconfont reco-theme" data-v-59e6cb88></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-59e6cb88>vuePress-theme-reco</a></span> <span data-v-59e6cb88><i class="iconfont reco-copyright" data-v-59e6cb88></i> <a data-v-59e6cb88><span data-v-59e6cb88>coco</span>
+          
+        <span data-v-59e6cb88>2017 - </span>
+        2024
+      </a></span></div></div> <div data-v-7dd95ae2><div data-v-7dd95ae2><main class="page"><section style="display:;"><div class="page-title"><h1 class="title">Python Decorator(1)</h1> <div data-v-8a445198><i class="iconfont reco-account" data-v-8a445198><span data-v-8a445198>coco</span></i> <i class="iconfont reco-date" data-v-8a445198><span data-v-8a445198>4/24/2017</span></i> <!----> <i class="tags iconfont reco-tag" data-v-8a445198><span class="tag-item" data-v-8a445198>python</span><span class="tag-item" data-v-8a445198>functional programming</span><span class="tag-item" data-v-8a445198>decorator</span></i></div></div> <div class="theme-reco-content content__default"><h1 id="函数式">函数式</h1> <p>装饰器的实现,得益于 Python 支持函数式编程! 因此, 记住, <strong>装饰器的本质是函数式!</strong> 函数式编程,可以查看我的一篇基础教程! 从另一个角度来讲, 更多的是动态的修改代码! 需要注意的是, Python Decorator 并不是装饰器模式, 虽然他可以很方便的实现装饰器模式. 我更多的理解是, <strong>Python Decorator 是 code decorator, 就是动态修改代码的特性!</strong></p> <h2 id="递归">递归</h2> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">fib</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> n <span class="token keyword">is</span> <span class="token number">0</span> <span class="token keyword">or</span> n <span class="token keyword">is</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> fib<span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> fib<span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span>
+old <span class="token operator">=</span> fib <span class="token comment"># 后面的 fib 可能会被修改, 先保存起来!</span>
+</code></pre></div><p>首先实现一个递归函数, 然后写出递归函数的递归深度跟踪函数!对于深度的跟踪, C style code 当然是需要全局变量做深度记录和跟踪, 最后写出来的代码是这样的!</p> <div class="language-python extra-class"><pre class="language-python"><code>indent <span class="token operator">=</span> <span class="token number">0</span>
+<span class="token keyword">def</span> <span class="token function">fib_verbose_tree</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">global</span> indent 
+    <span class="token keyword">print</span> <span class="token string">'| '</span> <span class="token operator">*</span> indent <span class="token operator">+</span> <span class="token string">'|--'</span><span class="token punctuation">,</span> <span class="token string">'fib'</span><span class="token punctuation">,</span> n
+    indent <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> n <span class="token keyword">is</span> <span class="token number">0</span> <span class="token keyword">or</span> n <span class="token keyword">is</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span> <span class="token string">'| '</span> <span class="token operator">*</span> indent <span class="token operator">+</span> <span class="token string">'|--'</span><span class="token punctuation">,</span> <span class="token string">'return'</span><span class="token punctuation">,</span> <span class="token builtin">repr</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        indent <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        value <span class="token operator">=</span> fib_verbose_tree<span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> fib_verbose_tree<span class="token punctuation">(</span>n<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token string">'| '</span> <span class="token operator">*</span> indent <span class="token operator">+</span> <span class="token string">'|--'</span><span class="token punctuation">,</span> <span class="token string">'return'</span><span class="token punctuation">,</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+        indent <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> value
+</code></pre></div><div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">print</span> <span class="token string">'-------------fib_verbose_tree-----------'</span>
+<span class="token keyword">print</span> fib_verbose_tree<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>-------------fib_verbose_tree-----------
+|-- fib 4
+| |-- fib 3
+| | |-- fib 2
+| | | |-- fib 1
+| | | | |-- return 1
+| | | |-- fib 0
+| | | | |-- return 1
+| | | |-- return 2
+| | |-- fib 1
+| | | |-- return 1
+| | |-- return 3
+| |-- fib 2
+| | |-- fib 1
+| | | |-- return 1
+| | |-- fib 0
+| | | |-- return 1
+| | |-- return 2
+| |-- return 5
+5
+</code></pre></div><p>如果使用函数式编程, 我们可以得到一个递归跟踪的外壳函数,负责深度的加减处理!其实就是函数调用之前,深度加1,出栈后,深度减1.</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">trace_tree</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    f<span class="token punctuation">.</span>indent <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">def</span> <span class="token function">wrapped</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span> <span class="token string">'| '</span> <span class="token operator">*</span> f<span class="token punctuation">.</span>indent <span class="token operator">+</span> <span class="token string">'|--'</span><span class="token punctuation">,</span> f<span class="token punctuation">.</span>__name__<span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>args<span class="token punctuation">)</span>
+        f<span class="token punctuation">.</span>indent <span class="token operator">+=</span> <span class="token number">1</span>
+        value <span class="token operator">=</span> f<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token string">'| '</span> <span class="token operator">*</span> f<span class="token punctuation">.</span>indent <span class="token operator">+</span> <span class="token string">'|--'</span><span class="token punctuation">,</span> <span class="token string">'return'</span><span class="token punctuation">,</span> <span class="token builtin">repr</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+        f<span class="token punctuation">.</span>indent <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> value
+    <span class="token keyword">return</span> wrapped
+</code></pre></div><div class="language-python extra-class"><pre class="language-python"><code>fib <span class="token operator">=</span> old
+<span class="token keyword">print</span> <span class="token string">'-------------trace_tree-----------'</span>
+fib <span class="token operator">=</span> trace_tree<span class="token punctuation">(</span>fib<span class="token punctuation">)</span>
+<span class="token keyword">print</span> fib<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>-------------trace_tree-----------
+|-- fib (4,)
+| |-- fib (3,)
+| | |-- fib (2,)
+| | | |-- fib (1,)
+| | | | |-- return 1
+| | | |-- fib (0,)
+| | | | |-- return 1
+| | | |-- return 2
+| | |-- fib (1,)
+| | | |-- return 1
+| | |-- return 3
+| |-- fib (2,)
+| | |-- fib (1,)
+| | | |-- return 1
+| | |-- fib (0,)
+| | | |-- return 1
+| | |-- return 2
+| |-- return 5
+5
+</code></pre></div><p>最后,<strong>我们调用 fib , 其实就是在调用 wrapped() 函数!因为此时的 fib 已经等于另外一个函数了! fib 的代码已经成为 wrapped 了, 即 fib 的代码现在已经是 wrapped 函数的代码了.因为 fib 指针对象现在指向的是 wrapped 函数.</strong></p> <p>下面我们来做 dp 编程.</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">memoize</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    cache <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">def</span> <span class="token function">wrapped</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> n <span class="token keyword">not</span> <span class="token keyword">in</span> cache<span class="token punctuation">:</span>
+            cache<span class="token punctuation">[</span>n<span class="token punctuation">]</span> <span class="token operator">=</span> f<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> cache<span class="token punctuation">[</span>n<span class="token punctuation">]</span>
+    <span class="token keyword">return</span> wrapped
+
+<span class="token keyword">print</span> <span class="token string">'-------------memoize_trace_tree-----------'</span>
+fib <span class="token operator">=</span> old
+fib <span class="token operator">=</span> trace_tree<span class="token punctuation">(</span>fib<span class="token punctuation">)</span>
+fib <span class="token operator">=</span> memoize<span class="token punctuation">(</span>fib<span class="token punctuation">)</span>
+<span class="token keyword">print</span> fib<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>-------------memoize_trace_tree-----------
+|-- fib (4,)
+| |-- fib (3,)
+| | |-- fib (2,)
+| | | |-- fib (1,)
+| | | | |-- return 1
+| | | |-- fib (0,)
+| | | | |-- return 1
+| | | |-- return 2
+| | |-- return 3
+| |-- return 5
+5
+</code></pre></div><p>以上是 DP 打表过程, 也可以当作装饰器来使用!</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">import</span> time
+<span class="token keyword">def</span> <span class="token function">profile</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapped</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        start <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        value <span class="token operator">=</span> f<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+        end <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span> <span class="token string">&quot;time taken: %lf sec&quot;</span> <span class="token operator">%</span> <span class="token punctuation">(</span>end <span class="token operator">-</span> start<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> value
+    <span class="token keyword">return</span> wrapped
+
+fib <span class="token operator">=</span> old
+<span class="token keyword">print</span> <span class="token string">'-------------timing_memoized-----------'</span>
+fib <span class="token operator">=</span> memoize<span class="token punctuation">(</span>fib<span class="token punctuation">)</span>
+f <span class="token operator">=</span> profile<span class="token punctuation">(</span>fib<span class="token punctuation">)</span>
+<span class="token keyword">print</span> f<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+
+fib <span class="token operator">=</span> old
+<span class="token keyword">print</span> <span class="token string">'-------------timing_unmemoized-----------'</span>
+f <span class="token operator">=</span> profile<span class="token punctuation">(</span>fib<span class="token punctuation">)</span>
+<span class="token keyword">print</span> f<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>-------------timing_memoized-----------
+time taken: 0.000021 sec
+10946
+-------------timing_unmemoized-----------
+time taken: 0.003210 sec
+10946
+</code></pre></div><h1 id="syntax-sugar">Syntax Sugar</h1> <p>Python 其实允许另一种形式的装饰器, 直接使用 @decorator 加在需要装饰的函数定义上面, 即可完成装饰! Magic!</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token decorator annotation punctuation">@trace_tree</span>
+<span class="token keyword">def</span> <span class="token function">my_pow</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> x
+    <span class="token keyword">return</span> my_pow<span class="token punctuation">(</span>x<span class="token punctuation">,</span> n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">*</span> my_pow<span class="token punctuation">(</span>x<span class="token punctuation">,</span> n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token keyword">if</span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token keyword">else</span> my_pow<span class="token punctuation">(</span>x<span class="token punctuation">,</span> n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">*</span> my_pow<span class="token punctuation">(</span>x<span class="token punctuation">,</span> n<span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">*</span> x
+
+my_pow<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>|-- my_pow (2, 5)
+| |-- my_pow (2, 2)
+| | |-- my_pow (2, 1)
+| | | |-- return 2
+| | |-- my_pow (2, 1)
+| | | |-- return 2
+| | |-- return 4
+| |-- my_pow (2, 2)
+| | |-- my_pow (2, 1)
+| | | |-- return 2
+| | |-- my_pow (2, 1)
+| | | |-- return 2
+| | |-- return 4
+| |-- return 32
+
+32
+</code></pre></div><p>这就是 Python 中的语法糖, <code>@trace_tree</code> 之后, Python 自动执行了 <code>my_pow = trace_tree(my_pow)</code>.</p> <h1 id="decorator">Decorator</h1> <p>Python 中有很多不同的 decorator, 根据装饰器本身的定义分两大类:</p> <ul><li>函数定义的decorator, <strong>decorator 本身是使用 函数定义的.</strong> <ul><li>不带参数, 即装饰器本身不带参数的.</li> <li>带参数, 即装饰器本身带参数的.</li></ul></li> <li>类定义的decorator, <strong>decorator 本身是使用 类定义的.</strong> <ul><li>不带参数, 即装饰器本身不带参数的.</li> <li>带参数, 即装饰器本身带参数的.</li></ul></li></ul> <p>按照 装饰器的用途, 即装饰的是 普通函数, 还是类方法又分两大类.</p> <p>Python 对 decorator 的定义:</p> <blockquote><p>A decorator is a function which accepts a function and returns a new function. Since it’s a function, we must provide three pieces of information: the name of the decorator, a parameter, and a suite of statements that creates and returns the resulting function.</p></blockquote> <blockquote><p>The suite of statements in a decorator will generally include a function def statement to create the new function and a return statement.</p></blockquote> <blockquote><p>A common alternative is to include a class definition statement . If a class definition is used, that class must define a callable object by including a definition for the __call__() method and (usually) being a subclass of collections.Callable.</p></blockquote> <blockquote><p>There are two kinds of decorators, decorators without arguments and decorators with arguments. In the first case, the operation of the decorator is very simple. In the case where the decorator accepts areguments the definition of the decorator is rather obscure, we’ll return to this in Defining Complex Decorators.</p></blockquote> <h2 id="function-decorator">Function Decorator</h2> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">entry_exit</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">new_f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Entring&quot;</span><span class="token punctuation">,</span> f<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+        f<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Exited&quot;</span><span class="token punctuation">,</span> f<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+        <span class="token comment">#new_f.__name__ = f.__name__</span>
+    <span class="token keyword">return</span> new_f
+    <span class="token comment">#return new_f()</span>
+
+<span class="token decorator annotation punctuation">@entry_exit</span>
+<span class="token keyword">def</span> <span class="token function">func1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;call func1()&quot;</span><span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@entry_exit</span>
+<span class="token keyword">def</span> <span class="token function">func2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;call func2()&quot;</span><span class="token punctuation">)</span>
+
+func1<span class="token punctuation">(</span><span class="token punctuation">)</span>
+func2<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>func1<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>('Entring', 'func1')
+call func1()
+('Exited', 'func1')
+('Entring', 'func2')
+call func2()
+('Exited', 'func2')
+new_f
+</code></pre></div><p>这个简单的例子, 可以看出, 经过装饰器 <code>@entry_exit</code> 装饰的函数, 他的相关信息发生改变了! 函数名字变成了 new_f. <strong>因此, 我们一般会在返回 new_f 之前修改 new_f.__name__ 等函数本身自带的属性信息为 原来的函数!</strong> 稍后,我们还会看到, 可以实现一个装饰器实现这个功能, 而且 Python 的一些包已经实现了!</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">p_decorator</span><span class="token punctuation">(</span>func<span class="token punctuation">)</span><span class="token punctuation">:</span>
+   <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+       <span class="token keyword">return</span> <span class="token string">&quot;&lt;p&gt;{0}&lt;/p&gt;&quot;</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>func<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+   <span class="token keyword">return</span> wrapper
+
+<span class="token keyword">class</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">&quot;kinny&quot;</span>
+        self<span class="token punctuation">.</span>family <span class="token operator">=</span> <span class="token string">&quot;Tian&quot;</span>
+
+    <span class="token decorator annotation punctuation">@p_decorator</span>
+    <span class="token keyword">def</span> <span class="token function">get_fullname</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>name<span class="token operator">+</span><span class="token string">&quot; &quot;</span><span class="token operator">+</span>self<span class="token punctuation">.</span>family
+
+my_person <span class="token operator">=</span> Person<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span> my_person<span class="token punctuation">.</span>get_fullname<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>&lt;p&gt;kinny Tian&lt;/p&gt;
+</code></pre></div><h3 id="无参数的-function-decorator">无参数的 function decorator</h3> <p>无参数的 function decorator 模式比较固定, 由于 decorator 本身没有额外参数, 写法也很简单, <strong>遵循传入函数, 返回一个经过包装的函数的原则即可, 只有两个层次</strong>. 这个内部返回函数的参数一般通用的写法是 <code>resultFunction(*args, **kwargs)</code>. 这个参数同时也可以接受被包装函数的参数, 因此写法更加通用! 当然如果你的装饰器只给某些特定的函数用, 那么参数也可以是这些特定的被包装函数参数保持一致即可!</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">myDecorator</span><span class="token punctuation">(</span> argumentFunction <span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">resultFunction</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        dosomething<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        argumentFunction<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span> <span class="token operator">**</span>kwargs<span class="token punctuation">)</span>
+        dosomething<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    resultFunction<span class="token punctuation">.</span>__doc__<span class="token operator">=</span> argumentFunction<span class="token punctuation">.</span>__doc__
+    <span class="token keyword">return</span> resultFunction
+</code></pre></div><h3 id="有参数的-function-decorator">有参数的 function decorator</h3> <p><strong>带参数的 function decorator 写法稍微复杂, 因为他自己也有参数. 所以第一层次函数, 就不能把 被包装函数当参数了. 那么只有内部多加一层次, 用来接受被包装函数参数了! 因此他的经典写法是 三层次!</strong></p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">decorator_function_with_arguments</span><span class="token punctuation">(</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> arg3<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrap</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Enter wrap()&quot;</span><span class="token punctuation">)</span>
+        
+        <span class="token keyword">def</span> <span class="token function">wrapped_f</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Inside wrapped_f()&quot;</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Decorator arguments: &quot;</span><span class="token punctuation">,</span> arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> arg3<span class="token punctuation">)</span>
+            f<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;After f(*args)&quot;</span><span class="token punctuation">)</span>
+        
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Exit wrap()&quot;</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> wrapped_f
+
+    <span class="token keyword">return</span> wrap
+
+<span class="token decorator annotation punctuation">@decorator_function_with_arguments</span><span class="token punctuation">(</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">sayHello</span><span class="token punctuation">(</span>a1<span class="token punctuation">,</span> a2<span class="token punctuation">,</span> a3<span class="token punctuation">,</span> a4<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'sayHello arguments:'</span><span class="token punctuation">,</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">,</span> a3<span class="token punctuation">,</span> a4<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;After decoration&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------Preparing to call sayHello()----------------&quot;</span><span class="token punctuation">)</span>
+sayHello<span class="token punctuation">(</span><span class="token string">&quot;say&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;argument&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;list&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------After first sayHello() call----------------&quot;</span><span class="token punctuation">)</span>
+sayHello<span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;different&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;set of&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;arguments&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------After second sayHello() call----------------&quot;</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>Enter wrap()
+Exit wrap()
+After decoration
+----------------Preparing to call sayHello()----------------
+Inside wrapped_f()
+('Decorator arguments: ', 'hello', 'world', 22)
+('sayHello arguments:', 'say', 'hello', 'argument', 'list')
+After f(*args)
+----------------After first sayHello() call----------------
+Inside wrapped_f()
+('Decorator arguments: ', 'hello', 'world', 22)
+('sayHello arguments:', 'a', 'different', 'set of', 'arguments')
+After f(*args)
+----------------After second sayHello() call----------------
+</code></pre></div><blockquote><p>来看看常见的函数decorator为啥都要写几层包裹函数，这是很多例子都有的，但是没告诉你为啥要这样写。</p></blockquote> <p>Python 解释器读取到 <code>@decorator_function_with_arguments(&quot;hello&quot;, &quot;world&quot;, 22)</code> 时，首先查找 <code>decorator_function_with_arguments</code> 并调用，但是 Python 知道这是一个装饰器啊，他还需要一个 被装饰的函数 <code>f</code> 做参数，和 class decorator 一样， 在完成 <code>dfwa = decorator_function_with_arguments(arg1, arg2, arg3)</code> 之后，继续 寻找 <code>f</code>， 然后 <code>f = dfwa(f)</code>, 此时还是装饰过程， 因此 返回的还必须是 callable 对象，即函数。 也就是说， <strong>Python 的 带参数函数装饰器 解释过程 就是 <code>f = dfwa(arg)(f) =&gt; f()</code> 模型，三个调用才发生真正的调用，因此 function decorator 里面 必须是 嵌套 2 层 wrap func.</strong></p> <h2 id="class-decorator">Class Decorator</h2> <p><strong>因为 Python 要求装饰器必须返回一个 callable 对象, 因此, class decorator 必须要实现 __call__ 函数, 这样, 返回的对象才能被调用!</strong></p> <h3 id="无参数的-class-decorator">无参数的 class decorator</h3> <p><strong>如果无参数, 那么解释器碰到 <code>@decorator_without_arguments</code> 就会直接寻找 被装饰函数 <code>f</code>, 然后构造装饰后的对象! 因此 <code>decorator_without_arguments</code> 的 初始化方法 __init__() 的参数就是 f 了. 然后新构造的对象, 每次被调用的时候, 就是 <code>decorated.__call__(*args)</code>.</strong></p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">class</span> <span class="token class-name">decorator_without_arguments</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;
+        If there are no decorator arguments, the function
+        to be decorated is passed to the constructor.
+        &quot;&quot;&quot;</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Inside __init__()&quot;</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>f <span class="token operator">=</span> f
+
+    <span class="token keyword">def</span> <span class="token function">__call__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> <span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;
+        The __call__ method is not called until the
+        decorated function is called.
+        &quot;&quot;&quot;</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Inside __call__()&quot;</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>f<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;After self.f(*args)&quot;</span><span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@decorator_without_arguments</span>
+<span class="token keyword">def</span> <span class="token function">sayHello</span><span class="token punctuation">(</span>a1<span class="token punctuation">,</span> a2<span class="token punctuation">,</span> a3<span class="token punctuation">,</span> a4<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'sayHello arguments:'</span><span class="token punctuation">,</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">,</span> a3<span class="token punctuation">,</span> a4<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;After decoration&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------Preparing to call sayHello()----------------&quot;</span><span class="token punctuation">)</span>
+sayHello<span class="token punctuation">(</span><span class="token string">&quot;say&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;argument&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;list&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------After first sayHello() call----------------&quot;</span><span class="token punctuation">)</span>
+sayHello<span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;different&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;set of&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;arguments&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------After second sayHello() call----------------&quot;</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>Inside __init__()
+After decoration
+----------------Preparing to call sayHello()----------------
+Inside __call__()
+('sayHello arguments:', 'say', 'hello', 'argument', 'list')
+After self.f(*args)
+----------------After first sayHello() call----------------
+Inside __call__()
+('sayHello arguments:', 'a', 'different', 'set of', 'arguments')
+After self.f(*args)
+----------------After second sayHello() call----------------
+</code></pre></div><p>当 Python 解释器读取到 <code>@decorator_without_arguments</code> 时，由于 <code>decorator_without_arguments</code> 是装饰器，初始化需要被装饰的 <code>f</code> 做参数，因此继续读取 <code>def sayHello</code>， 拿到参数后， 就执行 <code>sayHello = decorator_without_arguments(sayHello)</code>, 是个 <code>callable</code> 对象。以后 <code>sayHello()</code> 的调用就是 <code>sayHello.__call__()</code>.</p> <h3 id="带参数的-class-decorator">带参数的 class decorator</h3> <p><strong>如果 class decorator 本身还需要 参数 做初始化, 那么就和 带参数的function decorator 一样, 初始化的时候, 不能加 <code>f</code> 做参数了, 然后碰到 <code>f</code> 时候会再次被调用一次, 返回一个 callable 对象或者说一个函数. 此时, __call__ 就必须加 <code>f</code> 作为参数, 导致 __call__ 内部必须再写一个函数, 返回.</strong></p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">class</span> <span class="token class-name">decorator_with_arguments</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> arg3<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;
+        If there are decorator arguments, the function
+        to be decorated is not passed to the constructor!
+        &quot;&quot;&quot;</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Inside __init__()&quot;</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>arg1 <span class="token operator">=</span> arg1
+        self<span class="token punctuation">.</span>arg2 <span class="token operator">=</span> arg2
+        self<span class="token punctuation">.</span>arg3 <span class="token operator">=</span> arg3
+
+    <span class="token keyword">def</span> <span class="token function">__call__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">&quot;&quot;&quot;
+        If there are decorator arguments, __call__() is only called
+        once, as part of the decoration process! You can only give
+        it a single argument, which is the function object.
+        &quot;&quot;&quot;</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Inside __call__()&quot;</span><span class="token punctuation">)</span>
+        <span class="token keyword">def</span> <span class="token function">wrapped_f</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Inside wrapped_f()&quot;</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Decorator arguments:&quot;</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>arg1<span class="token punctuation">,</span> self<span class="token punctuation">.</span>arg2<span class="token punctuation">,</span> self<span class="token punctuation">.</span>arg3<span class="token punctuation">)</span>
+            f<span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;After f(*args)&quot;</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> wrapped_f
+
+<span class="token decorator annotation punctuation">@decorator_with_arguments</span><span class="token punctuation">(</span><span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;world&quot;</span><span class="token punctuation">,</span> <span class="token number">22</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">sayHello</span><span class="token punctuation">(</span>a1<span class="token punctuation">,</span> a2<span class="token punctuation">,</span> a3<span class="token punctuation">,</span> a4<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'sayHello arguments:'</span><span class="token punctuation">,</span> a1<span class="token punctuation">,</span> a2<span class="token punctuation">,</span> a3<span class="token punctuation">,</span> a4<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;After decoration&quot;</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------Preparing to call sayHello()----------------&quot;</span><span class="token punctuation">)</span>
+sayHello<span class="token punctuation">(</span><span class="token string">&quot;say&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;hello&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;argument&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;list&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------After first sayHello() call----------------&quot;</span><span class="token punctuation">)</span>
+sayHello<span class="token punctuation">(</span><span class="token string">&quot;a&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;different&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;set of&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;arguments&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;----------------After second sayHello() call----------------&quot;</span><span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>Inside __init__()
+Inside __call__()
+After decoration
+----------------Preparing to call sayHello()----------------
+Inside wrapped_f()
+('Decorator arguments:', 'hello', 'world', 22)
+('sayHello arguments:', 'say', 'hello', 'argument', 'list')
+After f(*args)
+----------------After first sayHello() call----------------
+Inside wrapped_f()
+('Decorator arguments:', 'hello', 'world', 22)
+('sayHello arguments:', 'a', 'different', 'set of', 'arguments')
+After f(*args)
+----------------After second sayHello() call----------------
+</code></pre></div><p>当 Python 解释器读取到 <code>@decorator_with_arguments(&quot;hello&quot;, &quot;world&quot;, 22)</code> 时完成初始化，带参数的 decorator 首先使用其参数初始化，<code>dwa = decorator_with_arguments(&quot;hello&quot;, &quot;world&quot;, 22)</code>。由于 decorator_with_arguments 是装饰器，需要被装饰的 f 做参数，因此继续读取 <code>def sayHello</code>， 拿到参数后， 就执行 <code>sayHello = dwa(sayHello)</code>, 返回的是 <code>wrapped_f</code>。<strong>class decorator的 解释模型 就是 <code>f = dcwa(args)(f) =&gt; f()</code>.</strong></p> <h1 id="深入理解decorator">深入理解decorator</h1> <p><strong>decorator 本身很容易修改原来函数的名字等属性, 因此我们需要保持原来的属性! 将我们返回的 callable 对象的 __name__ __doc__ 和 __module__ 修改为被装饰的对象的即可!</strong></p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">class</span> <span class="token class-name">entry_exit</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>f <span class="token operator">=</span> f
+        self<span class="token punctuation">.</span>__name__ <span class="token operator">=</span> f<span class="token punctuation">.</span>__name__
+        self<span class="token punctuation">.</span>__doc__ <span class="token operator">=</span> f<span class="token punctuation">.</span>__doc__
+        self<span class="token punctuation">.</span>__module__ <span class="token operator">=</span> f<span class="token punctuation">.</span>__module__
+
+    <span class="token keyword">def</span> <span class="token function">__call__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Entering&quot;</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>f<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>f<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Exited&quot;</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>f<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@entry_exit</span>
+<span class="token keyword">def</span> <span class="token function">func1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;函数func1&quot;&quot;&quot;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;call func1()&quot;</span><span class="token punctuation">)</span>
+
+<span class="token decorator annotation punctuation">@entry_exit</span>
+<span class="token keyword">def</span> <span class="token function">func2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;函数func2&quot;&quot;&quot;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;call func2()&quot;</span><span class="token punctuation">)</span>
+
+func1<span class="token punctuation">(</span><span class="token punctuation">)</span>
+func2<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> func1<span class="token punctuation">.</span>__name__
+<span class="token keyword">print</span> func1<span class="token punctuation">.</span>__doc__
+<span class="token keyword">print</span> func1<span class="token punctuation">.</span>__module__
+<span class="token keyword">print</span> func1<span class="token punctuation">.</span>f<span class="token punctuation">.</span>__name__
+<span class="token keyword">print</span> func1<span class="token punctuation">.</span>f<span class="token punctuation">.</span>__doc__
+<span class="token keyword">print</span> func1<span class="token punctuation">.</span>f<span class="token punctuation">.</span>__module__
+</code></pre></div><div class="language- extra-class"><pre><code>('Entering', 'func1')
+call func1()
+('Exited', 'func1')
+('Entering', 'func2')
+call func2()
+('Exited', 'func2')
+func1
+函数func1
+__main__
+func1
+函数func1
+__main__
+</code></pre></div><p>其实 functools 包里面提供来了一个 wraps 装饰器, 可以完成函数属性不变的功能!</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">from</span> functools <span class="token keyword">import</span> wraps
+<span class="token keyword">def</span> <span class="token function">entry_exit</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token decorator annotation punctuation">@wraps</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">new_f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Entring&quot;</span><span class="token punctuation">,</span> f<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+        f<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;Exited&quot;</span><span class="token punctuation">,</span> f<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> new_f
+
+<span class="token decorator annotation punctuation">@entry_exit</span>
+<span class="token keyword">def</span> <span class="token function">func1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">&quot;&quot;&quot;函数func1&quot;&quot;&quot;</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">&quot;call func1()&quot;</span><span class="token punctuation">)</span>
+
+func1<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>func1<span class="token punctuation">.</span>__name__<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>func1<span class="token punctuation">.</span>__doc__<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>func1<span class="token punctuation">.</span>__module__<span class="token punctuation">)</span>
+</code></pre></div><div class="language- extra-class"><pre><code>('Entring', 'func1')
+call func1()
+('Exited', 'func1')
+func1
+函数func1
+__main__
+</code></pre></div><p>以上装饰器的实现其实也很简单, 给出一个自己实现的简单版本!</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">wraps</span><span class="token punctuation">(</span>decoratedFunc<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">wrapper</span><span class="token punctuation">(</span>decorator<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        decorator<span class="token punctuation">.</span>__name__ <span class="token operator">=</span> decoratedFunc<span class="token punctuation">.</span>__name__
+        decorator<span class="token punctuation">.</span>__module__ <span class="token operator">=</span> decoratedFunc<span class="token punctuation">.</span>__module__
+        decorator<span class="token punctuation">.</span>__doc__ <span class="token operator">=</span> decoratedFunc<span class="token punctuation">.</span>__doc__
+        <span class="token keyword">return</span> decorator
+    
+    <span class="token keyword">return</span> wrapper
+</code></pre></div><h1 id="复杂decorator">复杂decorator</h1> <p>Python 内置了三个 基本的 decorator, <code>@staticmethod</code>, <code>@classmethod</code>, <code>@property</code>, 还有许多更加复杂的 decorator, 可以装饰类等, 还涉及到 metaprogramming, 下一次准备深入一下现实开源代码中的decorator, 先总结到这里!</p> <div class="language-python extra-class"><pre class="language-python"><code><span class="token keyword">def</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span>
+bar <span class="token operator">=</span> <span class="token builtin">staticmethod</span><span class="token punctuation">(</span>bar<span class="token punctuation">)</span>
+
+等价于
+<span class="token decorator annotation punctuation">@staticmethod</span>
+<span class="token keyword">def</span> <span class="token function">bar</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">pass</span>
+</code></pre></div><h1 id="总结">总结</h1> <p>什么是装饰器，就是装饰函数或者类的函数或类。那么他就必须接受 一个函数或者类当参数， 然后装饰它， 最后返回 装饰好的 函数或类。类比大象放冰箱分三步，decorator三步走：</p> <ol><li>把 被装饰者 传递给 装饰者;</li> <li>在 装饰者 内部装饰 这个 被装饰者。由于 需要返回一个 被装饰的 对象， 因此 在装饰者 内部 一定至少会 定义一个新的 函数;</li> <li>返回 装饰者 新定义的 callable 对象 即经过装饰后的对象;</li></ol> <p>装饰器并不仅仅体现了函数式编程， 它体现的更加本质的东西是<strong>一处代码被另一处代码动态修改或者说替换</strong>，这也正是编译型语言做不到的事情，例如C/C++就做不到。一个<strong>语言要想动态的修改自己，绝对需要靠虚拟机或者解释器在运行的时候来帮忙</strong>， 编译器只能在还没有运行的时候修改代码, 动态运行时候是没有办法做的；</p> <p>Java具有反射机制，动态产生和构造一个类，实际上就是因为它有一个虚拟机，虚拟机提供了这种接口。所以，<strong>解释型语言都具备很大的灵活性和可操作性。</strong></p> <p>当然你也可以从另一个层面来理解装饰器， 就是以 decorator 为代码主体，即把里面的 decorator 看成是 C 语言里的 micro 宏定义， 把 decorated 看成实际的宏替换实例。例如 <code>define micro 777</code> 就是这里的 <code>@decorator decorated</code>, 只不过这里的 <strong>宏 替换换过程是 静态的，装饰器替换是 动态的, 因为 C 语言是 静态 编译类型，Python 是 动态 解释类型语言嘛^_^</strong>;因此本质上就是<strong>少写代码，动态修改</strong> ^_^</p> <p>再来看看 decorator 的 @ 写法， 实际上是带领我们进入另一种 程序设计思维， 虽然本质上是 函数式 或者 宏替换。即 把 代码 运用到 代码 中。记住一个观点，软件工程的所有设计方法，有99%其实是因为懒。即为了 少 写 代码。代码写的越少，越易读，易维护，易扩展，易重构。但是少写代码并不意味着你真的少写了代码，实际上你看看开源社区，我们的代码 肯定是 越来越多的。但是 从 历史的 角度来看， 代码是越写越少。</p> <h1 id="参考">参考</h1> <ul><li><a href="http://python-3-patterns-idioms-test.readthedocs.io/en/latest/PythonDecorators.html" target="_blank" rel="nofollow noopener noreferrer">Decorators<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/#footnote_2" target="_blank" rel="nofollow noopener noreferrer">Understanding Python Decorators in 12 Easy Steps!<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://pythonconquerstheuniverse.wordpress.com/2012/04/29/python-decorators/" target="_blank" rel="nofollow noopener noreferrer">Python Decorators<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li> <li><a href="https://realpython.com/blog/python/primer-on-python-decorators/" target="_blank" rel="nofollow noopener noreferrer">Primer on Python Decorators<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>web flask为例子讲解decorator使用场景</li> <li><a href="http://thecodeship.com/patterns/guide-to-python-function-decorators/" target="_blank" rel="nofollow noopener noreferrer">guide-to-python-function-decorators<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>以html渲染为例子，还讲了functools.wraps的由来</li> <li><a href="https://www.python.org/dev/peps/pep-0318/#current-syntax" target="_blank" rel="nofollow noopener noreferrer">pep-0318<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul></div></section> <footer class="page-edit"><!----> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">1/12/2024, 11:01:31 PM</span></div></footer> <!----> <div class="comments-wrapper"><!----></div></main></div> <!----></div> <ul class="sub-sidebar sub-sidebar-wrapper" style="width:12rem;" data-v-b57cc07c data-v-7dd95ae2><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#函数式" class="sidebar-link reco-side-函数式" data-v-b57cc07c>函数式</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#递归" class="sidebar-link reco-side-递归" data-v-b57cc07c>递归</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#syntax-sugar" class="sidebar-link reco-side-syntax-sugar" data-v-b57cc07c>Syntax Sugar</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#decorator" class="sidebar-link reco-side-decorator" data-v-b57cc07c>Decorator</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#function-decorator" class="sidebar-link reco-side-function-decorator" data-v-b57cc07c>Function Decorator</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#无参数的-function-decorator" class="sidebar-link reco-side-无参数的-function-decorator" data-v-b57cc07c>无参数的 function decorator</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#有参数的-function-decorator" class="sidebar-link reco-side-有参数的-function-decorator" data-v-b57cc07c>有参数的 function decorator</a></li><li class="level-2" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#class-decorator" class="sidebar-link reco-side-class-decorator" data-v-b57cc07c>Class Decorator</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#无参数的-class-decorator" class="sidebar-link reco-side-无参数的-class-decorator" data-v-b57cc07c>无参数的 class decorator</a></li><li class="level-3" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#带参数的-class-decorator" class="sidebar-link reco-side-带参数的-class-decorator" data-v-b57cc07c>带参数的 class decorator</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#深入理解decorator" class="sidebar-link reco-side-深入理解decorator" data-v-b57cc07c>深入理解decorator</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#复杂decorator" class="sidebar-link reco-side-复杂decorator" data-v-b57cc07c>复杂decorator</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#总结" class="sidebar-link reco-side-总结" data-v-b57cc07c>总结</a></li><li class="level-1" data-v-b57cc07c><a href="/blogs/2017/python-decorator-1.html#参考" class="sidebar-link reco-side-参考" data-v-b57cc07c>参考</a></li></ul></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div></div></div>
+    <script src="/assets/js/app.328459c7.js" defer></script><script src="/assets/js/3.f94842e7.js" defer></script><script src="/assets/js/1.696ef8d7.js" defer></script><script src="/assets/js/18.74e4c23b.js" defer></script>
+  </body>
+</html>

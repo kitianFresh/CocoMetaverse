@@ -1,0 +1,3 @@
+Sitemap: https://coco.hacksmeta.com/sitemap.xml
+
+User-agent: *
